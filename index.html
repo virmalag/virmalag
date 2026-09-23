@@ -4,11 +4,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIRMALAG _ WEB STUDIO</title>
-    <link rel="stylesheet" href="./style.css">
+    
+    <style>
+        /* RESET BASE Y CURSOR RETRO */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: default;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            /* Fondo con degradado líquido Lila/Rosa */
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #e0c3fc 100%);
+            background-attachment: fixed;
+            color: #111;
+            padding-top: 80px;
+            padding-bottom: 50px;
+            min-height: 100vh;
+        }
+
+        /* 1. BARRA SUPERIOR (NAVEGACIÓN) */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #d3b4e3;
+            border-bottom: 2px solid #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            z-index: 1000;
+            box-shadow: 0 3px 0px #000;
+        }
+
+        .system-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #000;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            background: #fff;
+            border: 1.5px solid #000;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .nav-links a:hover {
+            background: #ffb7c5;
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px #000;
+            cursor: pointer;
+        }
+
+        /* 2. CONTENEDOR Y VENTANAS SUPERPUESTAS */
+        .desktop-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .window-box {
+            border: 2px solid #000;
+            background-color: #ffffff;
+            box-shadow: 6px 6px 0px #000;
+            border-radius: 3px;
+            position: relative;
+        }
+
+        /* Efecto de inclinación ligera para simular escritorio retro */
+        @media (min-width: 601px) {
+            #hero { transform: rotate(-0.5deg); }
+            #about { transform: rotate(0.8deg) translateX(10px); }
+            #target { transform: rotate(-0.6deg) translateX(-8px); }
+            #projects { transform: rotate(0.4deg); }
+            #contact { transform: rotate(-0.7deg) translateX(5px); }
+
+            .window-box:hover {
+                transform: scale(1.01) rotate(0deg) !important;
+                z-index: 10;
+                box-shadow: 8px 8px 0px #000;
+            }
+        }
+
+        /* BARRA DE TÍTULO DE VENTANA (ROSA/VIOLETA) */
+        .window-header {
+            background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 60%, #a1c4fd 100%);
+            border-bottom: 2px solid #000;
+            padding: 4px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 32px;
+        }
+
+        .window-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .window-controls .btn-ctrl {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid #000;
+            background: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        /* CUERPO DE LAS VENTANAS */
+        .window-body {
+            padding: 24px;
+        }
+
+        .hero-window h1 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            line-height: 1.1;
+            color: #2a0845;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            border-left: 4px solid #ff758c;
+            padding-left: 12px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 14px;
+            border-bottom: 2px dashed #000;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        /* CONTENIDOS INTERNOS */
+        .target-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .target-list li {
+            padding: 8px 12px;
+            background: #f8effb;
+            border: 1.5px solid #000;
+            box-shadow: 3px 3px 0px #000;
+            font-weight: bold;
+        }
+
+        .target-list li::before {
+            content: "✦ ";
+            color: #b152d0;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin-top: 15px;
+        }
+
+        .project-card {
+            border: 1.5px solid #000;
+            padding: 16px;
+            background: #fff0f5;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #7b1fa2;
+        }
+
+        .cta-button {
+            margin-top: 15px;
+            padding: 12px 24px;
+            border: 2px solid #000;
+            background: #ffb3ba;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 4px 4px 0px #000;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #ff6b81;
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #000;
+        }
+
+        /* ADAPTACIÓN A CELULARES */
+        @media (max-width: 600px) {
+            body { padding-top: 110px; }
+            .top-bar { flex-direction: column; gap: 8px; text-align: center; }
+            .nav-links a { font-size: 0.75rem; }
+            .hero-window h1 { font-size: 1.7rem; }
+            .window-body { padding: 16px; }
+            .projects-container { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Barra Superior / Navegación -->
+    <!-- Barra Superior -->
     <header class="top-bar">
         <div class="system-title">✦ VIRMALAG _ WEB STUDIO</div>
         <nav class="nav-links">
@@ -22,10 +252,10 @@
 
     <main class="desktop-container">
 
-        <!-- PANTALLA INICIAL (HERO) -->
+        <!-- HERO -->
         <section id="hero" class="window-box hero-window">
             <div class="window-header">
-                <span class="window-title"></span>
+                <span class="window-title">welcome_screen.exe</span>
                 <div class="window-controls">
                     <span class="btn-ctrl">_</span>
                     <span class="btn-ctrl">□</span>
@@ -41,7 +271,7 @@
         <!-- ¿QUÉ HAGO? -->
         <section id="about" class="window-box">
             <div class="window-header">
-                <span class="window-title"></span>
+                <span class="window-title">que_hago.txt</span>
                 <div class="window-controls">
                     <span class="btn-ctrl">X</span>
                 </div>
@@ -55,7 +285,7 @@
         <!-- ¿PARA QUIÉN? -->
         <section id="target" class="window-box">
             <div class="window-header">
-                <span class="window-title"></span>
+                <span class="window-title">para_quien.doc</span>
                 <div class="window-controls">
                     <span class="btn-ctrl">X</span>
                 </div>
@@ -74,7 +304,7 @@
         <!-- PROYECTOS -->
         <section id="projects" class="window-box">
             <div class="window-header">
-                <span class="window-title"></span>
+                <span class="window-title">proyectos.app</span>
                 <div class="window-controls">
                     <span class="btn-ctrl">X</span>
                 </div>
@@ -84,7 +314,7 @@
                 <p>Explora algunos de los entornos web que he construido:</p>
                 <div class="projects-container">
                     <article class="project-card">
-                        <h3>[PAGINA EDUCATIVA]</h3>
+                        <h3>[PÁGINA EDUCATIVA]</h3>
                         <p>Landing page interactiva para la carrera de Lengua del ISP2.</p>
                     </article>
                     <article class="project-card">
@@ -98,7 +328,7 @@
         <!-- CONTACTO -->
         <section id="contact" class="window-box">
             <div class="window-header">
-                <span class="window-title"></span>
+                <span class="window-title">contacto.exe</span>
                 <div class="window-controls">
                     <span class="btn-ctrl">X</span>
                 </div>
@@ -112,6 +342,5 @@
 
     </main>
 
-    <script src="script.js"></script>
 </body>
 </html>
