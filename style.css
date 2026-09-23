@@ -1,120 +1,117 @@
-/* Reseteo básico */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRMALAG _ WEB STUDIO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #f0e6f5;
-    color: #111;
-    padding-top: 50px;
-}
+    <!-- Barra Superior / Navegación -->
+    <header class="top-bar">
+        <div class="system-title">✦ VIRMALAG _ WEB STUDIO</div>
+        <nav class="nav-links">
+            <a href="#hero">[ Inicio ]</a>
+            <a href="#about">[ Qué Hago ]</a>
+            <a href="#target">[ 02_Para Quién ]</a>
+            <a href="#projects">[ 03_Proyectos ]</a>
+            <a href="#contact">[ 06_Contacto ]</a>
+        </nav>
+    </header>
 
-/* Barra de navegación superior */
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #333;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    z-index: 1000;
-}
+    <main class="desktop-container">
 
-.top-bar a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 10px;
-}
+        <!-- PANTALLA INICIAL (HERO) -->
+        <section id="hero" class="window-box hero-window">
+            <div class="window-header">
+                <span class="window-title"></span>
+                <div class="window-controls">
+                    <span class="btn-ctrl">_</span>
+                    <span class="btn-ctrl">□</span>
+                    <span class="btn-ctrl">X</span>
+                </div>
+            </div>
+            <div class="window-body">
+                <h1>BIENVENIDX A VIRMALAG WEB STUDIO</h1>
+                <p class="hero-subtitle">Diseño páginas web para emprendedores y negocios que quieren tener una presencia online propia.</p>
+            </div>
+        </section>
 
-/* Contenedor principal estilo escritorio */
-.desktop-container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
+        <!-- 01 — ¿QUÉ HAGO? -->
+        <section id="about" class="window-box">
+            <div class="window-header">
+                <span class="window-title"></span>
+                <div class="window-controls">
+                    <span class="btn-ctrl">X</span>
+                </div>
+            </div>
+            <div class="window-body">
+                <h2>01 — ¿QUÉ HAGO?</h2>
+                <p>Diseño y desarrollo de páginas web a medida, funcionales y que reflejen la identidad de tu marca.</p>
+            </div>
+        </section>
 
-/* Estructura base de las Ventanas */
-.window-box {
-    border: 2px solid #000;
-    background-color: #ffffff;
-    box-shadow: 4px 4px 0px #000;
-}
+        <!-- 02 — ¿PARA QUIÉN? -->
+        <section id="target" class="window-box">
+            <div class="window-header">
+                <span class="window-title"></span>
+                <div class="window-controls">
+                    <span class="btn-ctrl">X</span>
+                </div>
+            </div>
+            <div class="window-body">
+                <h2>02 — ¿PARA QUIÉN?</h2>
+                <ul class="target-list">
+                    <li>Emprendedores</li>
+                    <li>Profesionales independientes</li>
+                    <li>Negocios locales</li>
+                    <li>Proyectos personales y creativos</li>
+                </ul>
+            </div>
+        </section>
 
-.window-header {
-    background-color: #ddd;
-    border-bottom: 2px solid #000;
-    padding: 6px 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-}
+        <!-- 03 — PROYECTOS -->
+        <section id="projects" class="window-box">
+            <div class="window-header">
+                <span class="window-title"></span>
+                <div class="window-controls">
+                    <span class="btn-ctrl">X</span>
+                </div>
+            </div>
+            <div class="window-body">
+                <h2>03 — PROYECTOS</h2>
+                <p>Explora algunos de los entornos web que he construido:</p>
+                <div class="projects-container">
+                    <article class="project-card">
+                        <h3>[PAGINA EDUCATIVA]</h3>
+                        <p>Landing page interactiva para la carrera de Lengua del ISP2.</p>
+                    </article>
+                    <article class="project-card">
+                        <h3>[Pelitos en la ropa]</h3>
+                        <p>Página premium para ONG.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-.window-controls .btn-ctrl {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    line-height: 16px;
-    text-align: center;
-    border: 1px solid #000;
-    background: #fff;
-    margin-left: 4px;
-    font-size: 11px;
-    cursor: pointer;
-}
+        <!-- 04 — CONTACTO -->
+        <section id="contact" class="window-box">
+            <div class="window-header">
+                <span class="window-title"></span>
+                <div class="window-controls">
+                    <span class="btn-ctrl">X</span>
+                </div>
+            </div>
+            <div class="window-body">
+                <h2>04 — CONTACTO</h2>
+                <p>¿Listo para llevar tu negocio al siguiente nivel?</p>
+                <button class="cta-button">Enviar Mensaje</button>
+            </div>
+        </section>
 
-.window-body {
-    padding: 20px;
-}
+    </main>
 
-.hero-window h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.hero-subtitle {
-    font-size: 1.1rem;
-}
-
-.services-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.service-card {
-    border: 1px solid #000;
-    padding: 10px;
-    background: #fafafa;
-}
-
-.projects-container {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.project-card {
-    border: 1px solid #000;
-    padding: 15px;
-    flex: 1;
-}
-
-.cta-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border: 2px solid #000;
-    background: #fff;
-    font-weight: bold;
-    cursor: pointer;
-}
+    <script src="script.js"></script>
+</body>
+</html>
