@@ -1,117 +1,288 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIRMALAG _ WEB STUDIO</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* Importación de fuentes pixel/retro */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap');
 
-    <!-- Barra Superior / Navegación -->
-    <header class="top-bar">
-        <div class="system-title">✦ VIRMALAG _ WEB STUDIO</div>
-        <nav class="nav-links">
-            <a href="#hero">[ Inicio ]</a>
-            <a href="#about">[ Qué Hago ]</a>
-            <a href="#target">[ 02_Para Quién ]</a>
-            <a href="#projects">[ 03_Proyectos ]</a>
-            <a href="#contact">[ 06_Contacto ]</a>
-        </nav>
-    </header>
+/* Reset y Puntero Pixelado */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* Cursor clásico de Windows / OS Antiguo */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="black" d="M0,0 L0,15 L4,11 L7,16 L9,15 L6,10 L11,10 Z"/><path fill="white" d="M1,2 L1,12 L3.5,9.5 L6,13.5 L7,13 L4.5,9 L8.5,9 Z"/></svg>'), auto;
+}
 
-    <main class="desktop-container">
+body {
+    font-family: 'Space Mono', monospace;
+    /* Fondo con degradado líquido Lila/Rosa + Textura de Puntos/Checkerboard ligero */
+    background: 
+        radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 11%),
+        linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #e0c3fc 100%);
+    background-size: 20px 20px, 100% 100%;
+    background-attachment: fixed;
+    color: #111;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    min-height: 100vh;
+}
 
-        <!-- PANTALLA INICIAL (HERO) -->
-        <section id="hero" class="window-box hero-window">
-            <div class="window-header">
-                <span class="window-title"></span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">_</span>
-                    <span class="btn-ctrl">□</span>
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h1>BIENVENIDX A VIRMALAG WEB STUDIO</h1>
-                <p class="hero-subtitle">Diseño páginas web para emprendedores y negocios que quieren tener una presencia online propia.</p>
-            </div>
-        </section>
+/* --------------------------------------------------
+   1. BARRA SUPERIOR (MENÚ SUPERIOR)
+   -------------------------------------------------- */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #d3b4e3;
+    border-bottom: 2px solid #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 16px;
+    z-index: 1000;
+    box-shadow: 0 3px 0px #000;
+}
 
-        <!-- 01 — ¿QUÉ HAGO? -->
-        <section id="about" class="window-box">
-            <div class="window-header">
-                <span class="window-title"></span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h2>01 — ¿QUÉ HAGO?</h2>
-                <p>Diseño y desarrollo de páginas web a medida, funcionales y que reflejen la identidad de tu marca.</p>
-            </div>
-        </section>
+.system-title {
+    font-family: 'VT323', monospace;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
 
-        <!-- 02 — ¿PARA QUIÉN? -->
-        <section id="target" class="window-box">
-            <div class="window-header">
-                <span class="window-title"></span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h2>02 — ¿PARA QUIÉN?</h2>
-                <ul class="target-list">
-                    <li>Emprendedores</li>
-                    <li>Profesionales independientes</li>
-                    <li>Negocios locales</li>
-                    <li>Proyectos personales y creativos</li>
-                </ul>
-            </div>
-        </section>
+.nav-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
 
-        <!-- 03 — PROYECTOS -->
-        <section id="projects" class="window-box">
-            <div class="window-header">
-                <span class="window-title"></span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h2>03 — PROYECTOS</h2>
-                <p>Explora algunos de los entornos web que he construido:</p>
-                <div class="projects-container">
-                    <article class="project-card">
-                        <h3>[PAGINA EDUCATIVA]</h3>
-                        <p>Landing page interactiva para la carrera de Lengua del ISP2.</p>
-                    </article>
-                    <article class="project-card">
-                        <h3>[Pelitos en la ropa]</h3>
-                        <p>Página premium para ONG.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
+.nav-links a {
+    color: #000;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 3px 8px;
+    background: #fff;
+    border: 1.5px solid #000;
+    box-shadow: 2px 2px 0px #000;
+    transition: all 0.1s ease;
+}
 
-        <!-- 04 — CONTACTO -->
-        <section id="contact" class="window-box">
-            <div class="window-header">
-                <span class="window-title"></span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h2>04 — CONTACTO</h2>
-                <p>¿Listo para llevar tu negocio al siguiente nivel?</p>
-                <button class="cta-button">Enviar Mensaje</button>
-            </div>
-        </section>
+.nav-links a:hover {
+    background: #ffb7c5;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px #000;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="black" d="M6,0 L9,0 L9,3 L6,3 Z M3,3 L6,3 L6,6 L3,6 Z M9,3 L12,3 L12,6 L9,6 Z M0,6 L3,6 L3,9 L0,9 Z M12,6 L15,6 L15,9 L12,9 Z M3,9 L6,9 L6,12 L3,12 Z M9,9 L12,9 L12,12 L9,12 Z M6,12 L9,12 L9,15 L6,15 Z"/></svg>'), pointer;
+}
 
-    </main>
+/* --------------------------------------------------
+   2. CONTENEDOR Y DISPOSICIÓN DE VENTANAS
+   -------------------------------------------------- */
+.desktop-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+/* Estilo Base Ventana Retro */
+.window-box {
+    border: 2px solid #000;
+    background-color: #ffffff;
+    box-shadow: 6px 6px 0px #000;
+    border-radius: 2px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* EFECTO "DESORDEN CUIDADOSAMENTE UBICADO" (DESKTOPS / COMPU) */
+@media (min-width: 601px) {
+    #hero { transform: rotate(-0.5deg); }
+    #about { transform: rotate(0.8deg) translateX(10px); }
+    #target { transform: rotate(-0.6deg) translateX(-8px); }
+    #projects { transform: rotate(0.4deg); }
+    #contact { transform: rotate(-0.7deg) translateX(5px); }
+
+    .window-box:hover {
+        transform: scale(1.01) rotate(0deg) !important;
+        z-index: 10;
+        box-shadow: 9px 9px 0px #000;
+    }
+}
+
+/* Cabecera de Ventana con Degradado Rosa/Violeta */
+.window-header {
+    background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 60%, #a1c4fd 100%);
+    border-bottom: 2px solid #000;
+    padding: 4px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+}
+
+.window-title {
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.window-controls .btn-ctrl {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid #000;
+    background: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    box-shadow: 1px 1px 0px #000;
+}
+
+.window-controls .btn-ctrl:hover {
+    background: #ff758c;
+    color: #fff;
+}
+
+/* Cuerpo de la Ventana */
+.window-body {
+    padding: 24px;
+}
+
+.hero-window h1 {
+    font-family: 'VT323', monospace;
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    color: #2a0845;
+    text-shadow: 1px 1px 0px #fecfef;
+}
+
+.hero-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    border-left: 3px solid #ff758c;
+    padding-left: 12px;
+}
+
+h2 {
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+    margin-bottom: 14px;
+    border-bottom: 2px dashed #000;
+    padding-bottom: 4px;
+    display: inline-block;
+}
+
+/* --------------------------------------------------
+   3. ELEMENTOS INTERNOS (TARJETAS, LISTAS Y BOTONES)
+   -------------------------------------------------- */
+/* Lista 02 — ¿PARA QUIÉN? */
+.target-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.target-list li {
+    padding: 8px 12px;
+    background: #f8effb;
+    border: 1.5px solid #000;
+    box-shadow: 3px 3px 0px #000;
+    font-weight: bold;
+}
+
+.target-list li::before {
+    content: "✦ ";
+    color: #b152d0;
+}
+
+/* Tarjetas 03 — PROYECTOS (Estilo Mini Navegador) */
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 15px;
+}
+
+.project-card {
+    border: 1.5px solid #000;
+    padding: 16px;
+    background: #fff0f5;
+    box-shadow: 4px 4px 0px #000;
+    position: relative;
+}
+
+.project-card h3 {
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #7b1fa2;
+}
+
+.project-card p {
+    font-size: 0.9rem;
+}
+
+/* Botón Contacto */
+.cta-button {
+    margin-top: 15px;
+    padding: 12px 24px;
+    border: 2px solid #000;
+    background: #ffb3ba;
+    font-family: 'Space Mono', monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.1s ease;
+}
+
+.cta-button:hover {
+    background: #ff6b81;
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+}
+
+/* --------------------------------------------------
+   4. ADAPTABILIDAD A CELULAR (MOBILE RESPONSIVE)
+   -------------------------------------------------- */
+@media (max-width: 600px) {
+    body {
+        padding-top: 100px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        gap: 6px;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+    }
+
+    .hero-window h1 {
+        font-size: 2rem;
+    }
+
+    .window-body {
+        padding: 16px;
+    }
+
+    .projects-container {
+        grid-template-columns: 1fr;
+    }
+}
