@@ -1,401 +1,225 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIR MALAG // WEB STUDIO</title>
-    
-    <!-- Tipografía Cyber/Techno y Body de Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* =========================================================
-           VARIABLES Y ESTILOS GLOBALES (Y2K / TECHNO / PINK)
-           ========================================================= */
-        :root {
-            --bg-body: #090514; /* Fondo oscuro base */
-            --bg-card: #e5e5f7; /* Fondo claro para las 'ventanas' */
-            --pink-neon: #ff007f;
-            --purple-neon: #9d00ff;
-            --cyan-neon: #00f0ff;
-            --text-main: #f0e6ff;
-            --text-muted: #a79cb8;
-            --border-fuchsia: rgba(255, 0, 127, 1);
-            --font-title: 'Orbitron', sans-serif;
-            --font-tech: 'Rajdhani', sans-serif;
-            --font-body: 'Space Grotesk', sans-serif;
-            --gradient-fuchsia-cyan: linear-gradient(135deg, var(--pink-neon) 0%, var(--cyan-neon) 100%);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIR MALAG // WEB STUDIO</title>
+  <style>
+    :root {
+      --cyan: #00e5e5;
+      --pink: #ff2a8d;
+      --bg-dark: #121216;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
 
-        body {
-            background-color: var(--bg-body);
-            color: #000; /* Texto por defecto en ventanas claras */
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            line-height: 1.6;
-            cursor: url('https://cdn-icons-png.flaticon.com/512/37/37731.png'), auto; /* Cursor pixelado básico */
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 10px;
+    }
 
-        /* Títulos con efecto Cyber */
-        h1, h2, h3, h4 {
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
-        }
+    /* Contenedor Principal estilo Mockup */
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border: 2px solid #000;
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
 
-        /* Botones Neón/Y2K */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            font-family: var(--font-tech);
-            font-weight: 700;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+    /* Imagen original como fondo completo */
+    .bg-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+    }
 
-        .btn-gradient {
-            background: var(--gradient-fuchsia-cyan);
-            color: #000;
-            border: none;
-            box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
-        }
+    /* Capa interactiva superpuesta */
+    .interactive-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 12% 5% 5% 5%;
+    }
 
-        .btn-gradient:hover {
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
-            transform: translateY(-2px);
-        }
+    /* Área interactiva para las preguntas desplegables */
+    .accordion-section {
+      position: absolute;
+      top: 55%;
+      left: 6%;
+      right: 6%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-        .btn-outline {
-            background: transparent;
-            color: #000;
-            border: 2px solid #000;
-        }
+    /* Tarjetas Plegables */
+    .card {
+      background: #e8e8e8;
+      border: 2px solid #000;
+      outline: 2px solid var(--cyan);
+      box-shadow: 4px 4px 0px #000;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
 
-        .btn-outline:hover {
-            background: rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
+    .card-header {
+      background: linear-gradient(90deg, #d81b60, #ad1457);
+      color: #000;
+      font-weight: bold;
+      font-style: italic;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 2px solid #000;
+      font-size: 1.1rem;
+    }
 
-        /* =========================================================
-           CONTENEDOR DE PÁGINA COMPLETA
-           ========================================================= */
-        .page-container {
-            display: flex;
-            flex-direction: column;
-            width: 100vw;
-            min-height: 100vh;
-            border: 2px solid #fff;
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(255, 0, 127, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 85% 60%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
-                linear-gradient(rgba(18, 10, 39, 0.7) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(18, 10, 39, 0.7) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-        }
+    .card-header span {
+      background: #00e5e5;
+      color: #000;
+      font-style: normal;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+      border: 1px solid #000;
+      font-weight: bold;
+    }
 
-        /* Barra de Título Superior Simulación Windows */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fff;
-            padding: 5px 15px;
-            border-bottom: 2px solid #000;
-            font-family: var(--font-tech);
-            font-size: 1.1rem;
-            color: #000;
-        }
+    .card-body {
+      max-height: 500px;
+      padding: 12px 14px;
+      background: #dedede;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      transition: max-height 0.3s cubic-bezier(0,1,0,1), padding 0.3s ease;
+      overflow: hidden;
+    }
 
-        .top-bar span {
-            font-weight: 700;
-            color: var(--pink-neon);
-        }
+    .card-body ul {
+      list-style-type: square;
+      padding-left: 18px;
+    }
 
-        /* Área de contenido principal (Ventanas superpuestas) */
-        .main-content {
-            flex: 1;
-            padding: 40px;
-            position: relative;
-        }
+    .card-body li {
+      margin-bottom: 8px;
+    }
 
-        /* =========================================================
-           ESTILOS DE VENTANAS (VENTANA BASE SIMULADA)
-           ========================================================= */
-        .window {
-            background-color: var(--bg-card);
-            border: 4px solid var(--border-fuchsia);
-            border-radius: 4px;
-            position: absolute;
-            box-shadow: 10px 10px 0 #000;
-            overflow: hidden;
-        }
+    /* Estado plegado/cerrado */
+    .card.collapsed .card-body {
+      max-height: 0;
+      padding: 0 14px;
+    }
 
-        .window-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--gradient-fuchsia-cyan);
-            padding: 5px 10px;
-            border-bottom: 2px solid #000;
-        }
+    /* Botón WhatsApp */
+    .ws-button {
+      position: absolute;
+      bottom: 6%;
+      left: 10%;
+      right: 10%;
+      background: var(--cyan);
+      border: 2px solid #000;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      color: #000;
+      text-decoration: none;
+      box-shadow: 3px 3px 0px #000;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      display: block;
+    }
 
-        .window-title {
-            font-family: var(--font-tech);
-            color: #000;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-
-        .window-controls {
-            display: flex;
-            gap: 5px;
-        }
-
-        .win-btn {
-            width: 16px;
-            height: 16px;
-            border: 1px solid #000;
-            background: #ccc;
-        }
-
-        .win-close { background: red; }
-        .win-max { background: green; }
-        .win-min { background: blue; }
-
-        .window-body {
-            padding: 20px;
-        }
-
-        /* =========================================================
-           POSICIONAMIENTO DE VENTANAS (COMO EN LA IMAGEN)
-           ========================================================= */
-        .win-layers { top: 60px; left: 180px; width: 300px; height: 180px; z-index: 10; }
-        .win-checkerboard { top: 60px; right: 80px; width: 350px; height: 250px; z-index: 5; }
-        .win-works { top: 120px; right: 120px; width: 350px; height: 320px; z-index: 15; }
-        .win-propuestas { top: 120px; left: 120px; width: 350px; height: 320px; z-index: 20; }
-        .win-github { top: 400px; left: 120px; width: 350px; height: 320px; z-index: 25; }
-        .win-why-me { top: 400px; right: 120px; width: 350px; height: 320px; z-index: 30; }
-        .win-cta { bottom: 40px; left: 120px; right: 120px; height: 200px; z-index: 35; text-align: center; border-radius: 12px;}
-
-        /* Texturas de fondo simuladas */
-        .texture-checkerboard {
-            width: 100%;
-            height: 100%;
-            background-image: 
-                conic-gradient(#000 90deg, #fff 90deg 180deg, #000 180deg 270deg, #fff 270deg);
-            background-size: 40px 40px;
-        }
-
-        .texture-liquid {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,0,127,0.4), rgba(157,0,255,0.4), rgba(0,240,255,0.4));
-        }
-
-        /* Contenido de ventanas específicas */
-        .propuesta-item, .works-item, .github-item {
-            margin-bottom: 15px;
-        }
-
-        .propuesta-item p, .github-item p {
-            font-size: 0.95rem;
-            color: #000;
-        }
-
-        .icon-box {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            background: rgba(255,0,127,0.1);
-            border: 1px solid #000;
-            margin-right: 10px;
-        }
-
-        .works-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .works-item {
-            width: 100%;
-            height: 80px;
-            background: #fff;
-            border: 1px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: #000;
-        }
-
-    </style>
+    .ws-button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #000;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="page-container">
+  <div class="canvas-container">
+    <!-- IMAGEN CON TU ESTÉTICA ORIGINAL -->
+    <!-- Reemplaza "tu-imagen.jpg" por el nombre de tu archivo de imagen subida a GitHub -->
+    <img src="tu-imagen.jpg" alt="Vir Malag Web Studio" class="bg-image">
+
+    <div class="interactive-layer">
+      
+      <!-- SECCIÓN DE PREGUNTAS PLEGABLES -->
+      <div class="accordion-section">
         
-        <!-- BARRA DE TÍTULO SUPERIOR SIMULADA -->
-        <div class="top-bar">
-            LAYERS
-            <span>VIR MALAG // WEB STUDIO</span>
+        <!-- Tarjeta 1: ¿POR QUÉ GITHUB? -->
+        <div class="card" id="card-github">
+          <div class="card-header" onclick="toggleCard('card-github')">
+            ¿POR QUÉ GITHUB?
+            <span class="icon">▼</span>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Alojamiento gratuito:</strong> La página no te cobra mensualmente por usarla.</li>
+              <li><strong>Carga rápida:</strong> Tiene una infraestructura espectacular para el tiempo de carga.</li>
+              <li><strong>Actualización fácil:</strong> Con el debido conocimiento de códigos, se actualiza en minutos. (Si no conocés, tranqui, estoy yo).</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="main-content">
-            
-            <!-- VENTANA: LAYERS (Simulada, solo textura y texto) -->
-            <div class="window win-layers">
-                <div class="window-header">
-                    <div class="window-title">LAYERS</div>
-                    <div class="window-controls">
-                        <div class="win-btn win-min"></div>
-                        <div class="win-btn win-max"></div>
-                        <div class="win-btn win-close"></div>
-                    </div>
-                </div>
-                <div class="window-body" style="background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center;">
-                    <p style="font-family: var(--font-tech); font-size: 1.2rem; color: #000;">ESTILO Y2K TECHNO</p>
-                </div>
-            </div>
+        <!-- Tarjeta 2: ¿POR QUÉ ELEGIRME? -->
+        <div class="card" id="card-elegirme">
+          <div class="card-header" onclick="toggleCard('card-elegirme')">
+            ¿POR QUÉ ELEGIRME?
+            <span class="icon">▼</span>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li>Diseño único, funcional y adaptado a tu marca.</li>
+              <li>Experiencia trabajando con emprendedores y pequeños negocios como el tuyo.</li>
+              <li>Trato personal y directo.</li>
+            </ul>
+          </div>
+        </div>
 
-            <!-- VENTANA: CHECKERBOARD TEXTURE -->
-            <div class="window win-checkerboard">
-                <div class="window-header">
-                    <div class="window-title">TEXTURA_FONDO</div>
-                    <div class="window-controls">
-                        <div class="win-btn win-close"></div>
-                    </div>
-                </div>
-                <div class="window-body" style="padding: 0;">
-                    <div class="texture-checkerboard"></div>
-                </div>
-            </div>
+      </div>
 
-            <!-- VENTANA: PROPUESTAS -->
-            <div class="window win-propuestas">
-                <div class="window-header">
-                    <div class="window-title">PROPUESTAS</div>
-                    <div class="window-controls">
-                        <div class="win-btn win-close"></div>
-                    </div>
-                </div>
-                <div class="window-body">
-                    <div class="propuesta-item">
-                        <div class="icon-box">🚀</div>
-                        <p><strong>Plan Express</strong> (una página)</p>
-                    </div>
-                    <div class="propuesta-item">
-                        <div class="icon-box">⚡</div>
-                        <p><strong>Plan Pro</strong> (sitio completo)</p>
-                    </div>
-                    <div class="propuesta-item">
-                        <div class="icon-box">➕</div>
-                        <p>Secciones Extra</p>
-                    </div>
-                    <div class="propuesta-item">
-                        <div class="icon-box">💳</div>
-                        <p>Integración MercadoPago</p>
-                    </div>
-                </div>
-            </div>
+      <!-- BOTÓN CONSULTA WHATSAPP -->
+      <a href="https://wa.me/TUNUMERODETELEFONO" target="_blank" class="ws-button">
+        SOLICITAR CONSULTA POR WHATSAPP
+      </a>
 
-            <!-- VENTANA: TRABAJOS (Portafolio) -->
-            <div class="window win-works">
-                <div class="window-header">
-                    <div class="window-title">TRABAJOS</div>
-                    <div class="window-controls">
-                        <div class="win-btn win-close"></div>
-                    </div>
-                </div>
-                <div class="window-body">
-                    <p>Conocé mis proyectos recientes:</p>
-                    <div class="works-grid">
-                        <div class="works-item">WEB 01</div>
-                        <div class="works-item">WEB 02</div>
-                        <div class="works-item">WEB 03</div>
-                    </div>
-                    <a href="#portafolio" class="btn btn-gradient" style="margin-top: 15px; width: 100%;">Ver portafolio completo</a>
-                </div>
-            </div>
+    </div>
+  </div>
 
-            <!-- VENTANA: ¿POR QUÉ GITHUB? (Textos Simplificados) -->
-            <div class="window win-github">
-                <div class="window-header">
-                    <div class="window-title">¿POR QUÉ GITHUB?</div>
-                    <div class="window-controls">
-                        <div class="win-btn win-close"></div>
-                    </div>
-                </div>
-                <div class="window-body">
-                    <div class="github-item">
-                        <p>Alojamiento gratuito.</p>
-                        <p>(No se cobra hosting mensual).</p>
-                    </div>
-                    <div class="github-item">
-                        <p>Carga rápida.</p>
-                        <p>(Tu web abre al toque).</p>
-                    </div>
-                    <div class="github-item">
-                        <p>Actualización fácil.</p>
-                        <p>(Si necesitás hacer cambios).</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- VENTANA: ¿POR QUÉ YO? -->
-            <div class="window win-why-me">
-                <div class="window-header">
-                    <div class="window-title">¿POR QUÉ YO?</div>
-                    <div class="window-controls">
-                        <div class="win-btn win-close"></div>
-                    </div>
-                </div>
-                <div class="window-body">
-                    <p style="margin-bottom: 15px;">Diseño único, funcional y adaptado a tu marca.</p>
-                    <p style="margin-bottom: 15px;">Experiencia trabajando con emprendedores y pequeños negocios como el tuyo.</p>
-                    <p>Trato personal y directo.</p>
-                </div>
-            </div>
-
-            <!-- VENTANA: LLAMADO A LA ACCIÓN (CTA) -->
-            <div class="window win-cta">
-                <div class="window-header">
-                    <div class="window-title">¿TIENAS DUDAS?</div>
-                    <div class="window-controls">
-                        <div class="win-btn win-min"></div>
-                        <div class="win-btn win-close"></div>
-                    </div>
-                </div>
-                <div class="window-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <a href="https://wa.me/543492210985?text=Hola%20Vir!%20Quiero%20consultar%20por%20una%20p%C3%A1gina%20web" target="_blank" class="btn btn-gradient" style="font-size: 1.3rem;">SOLICITAR CONSULTA POR WHATSAPP</a>
-                    <a href="#github-pages-info" class="btn btn-outline" style="margin-top: 15px;">Conocer más sobre GitHub Pages</a>
-                </div>
-            </div>
-
-        </div> <!-- /main-content -->
-
-    </div> <!-- /page-container -->
-
+  <script>
+    function toggleCard(cardId) {
+      const card = document.getElementById(cardId);
+      const icon = card.querySelector('.icon');
+      
+      card.classList.toggle('collapsed');
+      
+      if (card.classList.contains('collapsed')) {
+        icon.textContent = '▲';
+      } else {
+        icon.textContent = '▼';
+      }
+    }
+  </script>
 </body>
-                      </html>
+</html>
