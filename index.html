@@ -7,8 +7,10 @@
   <style>
     :root {
       --cyan: #00e5e5;
-      --pink: #ff2a8d;
-      --bg-dark: #121216;
+      --magenta: #d81b60;
+      --pink-accent: #ff77bc;
+      --panel-bg: #e2e2e8;
+      --border-black: #000000;
     }
 
     * {
@@ -19,176 +21,418 @@
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: #000;
+      background-color: #0b0b0e;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px 10px;
+      padding: 10px;
     }
 
-    /* Contenedor Principal estilo Mockup */
-    .canvas-container {
-      position: relative;
+    /* CONTENEDOR PRINCIPAL: MARCO DEL EDITOR GRÁFICO */
+    .editor-window {
       width: 100%;
-      max-width: 480px;
-      background: #fff;
-      border: 2px solid #000;
-      box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+      max-width: 460px;
+      background: var(--panel-bg);
+      border: 2px solid var(--border-black);
+      box-shadow: 8px 8px 0px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      position: relative;
       overflow: hidden;
     }
 
-    /* Imagen original como fondo completo */
-    .bg-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      user-select: none;
+    /* BARRA SUPERIOR */
+    .editor-header {
+      background: #f0f0f5;
+      border-bottom: 2px solid var(--border-black);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 1rem;
     }
 
-    /* Capa interactiva superpuesta */
-    .interactive-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .editor-body {
+      display: flex;
+      position: relative;
+    }
+
+    /* PANEL IZQUIERDO: LAYERS (PHOTOSHOP STYLE) */
+    .layers-panel {
+      width: 110px;
+      background: #d8d8e0;
+      border-right: 2px solid var(--border-black);
+      padding: 6px 4px;
+      font-size: 0.7rem;
+      font-weight: bold;
       display: flex;
       flex-direction: column;
-      padding: 12% 5% 5% 5%;
+      gap: 6px;
+      flex-shrink: 0;
+      z-index: 2;
     }
 
-    /* Área interactiva para las preguntas desplegables */
-    .accordion-section {
-      position: absolute;
-      top: 55%;
-      left: 6%;
-      right: 6%;
+    .panel-row {
+      display: flex;
+      justify-content: space-between;
+      background: #c8c8d4;
+      padding: 2px 4px;
+      border: 1px solid var(--border-black);
+    }
+
+    .layer-item {
+      background: #b8b8c8;
+      border: 1px solid var(--border-black);
+      height: 22px;
+      display: flex;
+      align-items: center;
+      padding-left: 4px;
+    }
+
+    /* BARRA DE DESPLAZAMIENTO DERECHA */
+    .scrollbar-right {
+      width: 16px;
+      background: var(--pink-accent);
+      border-left: 2px solid var(--border-black);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .scroll-arrow {
+      font-size: 0.7rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* LIENZO CENTRAL CON FONDO DE AJEDREZ 3D Y DEGRADADO */
+    .canvas-viewport {
+      flex: 1;
+      position: relative;
+      background: #000;
+      overflow: hidden;
+      padding: 15px 10px;
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
 
-    /* Tarjetas Plegables */
-    .card {
-      background: #e8e8e8;
-      border: 2px solid #000;
-      outline: 2px solid var(--cyan);
-      box-shadow: 4px 4px 0px #000;
-      border-radius: 4px;
-      overflow: hidden;
-      transition: all 0.3s ease;
+    /* EFECTO DE FONDO: AJEDREZ DISTORSIONADO Y HOLOGRAMA */
+    .canvas-viewport::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 229, 225, 0.6), transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 42, 141, 0.6), transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(160, 32, 240, 0.5), transparent 60%);
+      z-index: 0;
     }
 
-    .card-header {
-      background: linear-gradient(90deg, #d81b60, #ad1457);
+    .canvas-viewport::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        linear-gradient(45deg, #fff 25%, transparent 25%), 
+        linear-gradient(-45deg, #fff 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #fff 75%),
+        linear-gradient(-45deg, transparent 75%, #fff 75%);
+      background-size: 60px 60px;
+      background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+      opacity: 0.25;
+      transform: perspective(300px) rotateX(25deg) rotateZ(-10deg);
+      z-index: 1;
+    }
+
+    /* ESTILO GENERAL DE LAS TARJETAS */
+    .window-card {
+      position: relative;
+      z-index: 2;
+      background: #eeeeee;
+      border: 2px solid var(--border-black);
+      outline: 2px solid var(--cyan);
+      box-shadow: 4px 4px 0px var(--border-black);
+    }
+
+    .card-titlebar {
+      background: var(--magenta);
       color: #000;
-      font-weight: bold;
+      padding: 6px 10px;
+      font-weight: 900;
       font-style: italic;
-      padding: 10px 14px;
+      font-size: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      cursor: pointer;
-      border-bottom: 2px solid #000;
-      font-size: 1.1rem;
+      border-bottom: 2px solid var(--border-black);
     }
 
-    .card-header span {
-      background: #00e5e5;
-      color: #000;
+    .card-close {
       font-style: normal;
-      padding: 2px 6px;
-      font-size: 0.8rem;
-      border: 1px solid #000;
-      font-weight: bold;
-    }
-
-    .card-body {
-      max-height: 500px;
-      padding: 12px 14px;
-      background: #dedede;
       font-size: 0.9rem;
-      line-height: 1.4;
-      transition: max-height 0.3s cubic-bezier(0,1,0,1), padding 0.3s ease;
-      overflow: hidden;
+      cursor: pointer;
     }
 
-    .card-body ul {
-      list-style-type: square;
-      padding-left: 18px;
+    .card-content {
+      padding: 10px;
+      color: #000;
+      font-size: 0.85rem;
+      line-height: 1.35;
     }
 
-    .card-body li {
+    /* PROPUESTAS Y TRABAJOS (GRID DOBLE) */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .plans-container {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
       margin-bottom: 8px;
     }
 
-    /* Estado plegado/cerrado */
-    .card.collapsed .card-body {
-      max-height: 0;
-      padding: 0 14px;
-    }
-
-    /* Botón WhatsApp */
-    .ws-button {
-      position: absolute;
-      bottom: 6%;
-      left: 10%;
-      right: 10%;
-      background: var(--cyan);
-      border: 2px solid #000;
-      padding: 12px;
-      text-align: center;
+    .plan-box {
+      font-size: 0.75rem;
       font-weight: bold;
-      color: #000;
-      text-decoration: none;
-      box-shadow: 3px 3px 0px #000;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      display: block;
     }
 
-    .ws-button:active {
-      transform: translate(2px, 2px);
+    .plan-icon {
+      width: 32px;
+      height: 32px;
+      background: #fff;
+      border: 1px solid #000;
+      margin: 0 auto 4px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 2px 0px #000;
+    }
+
+    .tag-badge {
+      background: #ffffff;
+      border: 1px solid #000;
+      padding: 2px 4px;
+      font-size: 0.7rem;
+      margin-top: 4px;
+      display: inline-block;
       box-shadow: 1px 1px 0px #000;
+    }
+
+    .portfolio-thumbs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .thumb {
+      flex: 1;
+      height: 45px;
+      background: #ccc;
+      border: 1px solid #000;
+    }
+
+    .btn-portfolio {
+      background: var(--magenta);
+      color: #000;
+      text-align: center;
+      padding: 4px;
+      font-weight: bold;
+      font-size: 0.75rem;
+      border: 1px solid #000;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px #000;
+    }
+
+    /* TARJETAS PLEGABLES (ACORDEÓN INTERACTIVO) */
+    .collapsible-card {
+      cursor: pointer;
+    }
+
+    .collapsible-header {
+      background: var(--magenta);
+      color: #000;
+      padding: 6px 10px;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border-black);
+      user-select: none;
+    }
+
+    .toggle-arrow {
+      font-style: normal;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .collapsible-body {
+      max-height: 300px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 10px;
+      background: #e0e0e0;
+    }
+
+    .collapsible-body ul {
+      padding-left: 15px;
+    }
+
+    .collapsible-body li {
+      margin-bottom: 6px;
+    }
+
+    /* ESTADO PLEGADO */
+    .collapsible-card.collapsed .collapsible-body {
+      max-height: 0;
+      padding: 0 10px;
+    }
+
+    /* BOTÓN SECCIÓN INFERIOR */
+    .cta-button {
+      background: var(--cyan);
+      border: 2px solid var(--border-black);
+      color: #000;
+      font-weight: 900;
+      text-align: center;
+      padding: 10px;
+      font-size: 1.05rem;
+      text-decoration: none;
+      box-shadow: 3px 3px 0px var(--border-black);
+      display: block;
+      margin-top: 5px;
+    }
+
+    .cta-button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--border-black);
     }
   </style>
 </head>
 <body>
 
-  <div class="canvas-container">
-    <!-- IMAGEN CON TU ESTÉTICA ORIGINAL -->
-    <!-- Reemplaza "tu-imagen.jpg" por el nombre de tu archivo de imagen subida a GitHub -->
-    <img src="tu-imagen.jpg" alt="Vir Malag Web Studio" class="bg-image">
+  <div class="editor-window">
+    
+    <!-- HEADER BAR -->
+    <div class="editor-header">
+      <span>VIR MALAG // WEB STUDIO</span>
+      <span>✕</span>
+    </div>
 
-    <div class="interactive-layer">
+    <div class="editor-body">
       
-      <!-- SECCIÓN DE PREGUNTAS PLEGABLES -->
-      <div class="accordion-section">
+      <!-- LAYERS PANEL (IZQUIERDA) -->
+      <div class="layers-panel">
+        <div>LAYERS</div>
+        <div class="panel-row"><span>NORMAL</span><span>▼</span></div>
+        <div class="panel-row"><span>OPACITY</span><span>100%</span></div>
+        <div class="panel-row"><span>LOCK: ☒</span><span>FILL 100%</span></div>
+        <div class="layer-item">👁 Layer 4</div>
+        <div class="layer-item">👁 Layer 3</div>
+        <div class="layer-item">👁 Layer 2</div>
+        <div class="layer-item">👁 Layer 1</div>
+      </div>
+
+      <!-- LIENZO / CONTENIDO -->
+      <div class="canvas-viewport">
         
-        <!-- Tarjeta 1: ¿POR QUÉ GITHUB? -->
-        <div class="card" id="card-github">
-          <div class="card-header" onclick="toggleCard('card-github')">
-            ¿POR QUÉ GITHUB?
-            <span class="icon">▼</span>
+        <!-- TARJETA 1: ENCABEZADO -->
+        <div class="window-card">
+          <div class="card-titlebar">
+            ¿TE GUSTARÍA UNA PÁGINA COMO ESTA?
+            <span class="card-close">✕</span>
           </div>
-          <div class="card-body">
+          <div class="card-content">
+            ¡Claro que sí! Esta es una muestra de cómo podría verse tu próximo sitio web, diseñado exclusivamente para tu negocio.
+          </div>
+        </div>
+
+        <!-- FILA DE PROPUESTAS Y TRABAJOS -->
+        <div class="grid-2col">
+          
+          <!-- PROPUESTAS -->
+          <div class="window-card">
+            <div class="card-titlebar">
+              PROPUESTAS
+              <span class="card-close">✕</span>
+            </div>
+            <div class="card-content">
+              <div class="plans-container">
+                <div class="plan-box">
+                  <div class="plan-icon">📄</div>
+                  Plan Express<br>(una página)
+                </div>
+                <div class="plan-box">
+                  <div class="plan-icon">📰</div>
+                  Plan Pro<br>(sitio completo)
+                </div>
+              </div>
+              <div class="tag-badge">+ Secciones Extra</div>
+              <div class="tag-badge">+ MercadoPago</div>
+            </div>
+          </div>
+
+          <!-- TRABAJOS -->
+          <div class="window-card">
+            <div class="card-titlebar">
+              TRABAJOS
+              <span class="card-close">✕</span>
+            </div>
+            <div class="card-content">
+              <div class="portfolio-thumbs">
+                <div class="thumb"></div>
+                <div class="thumb"></div>
+                <div class="thumb"></div>
+              </div>
+              <div class="btn-portfolio">Ver portfolio completo</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TARJETA 2: ¿POR QUÉ GITHUB? (PLEGABLE) -->
+        <div class="window-card collapsible-card" id="card-github">
+          <div class="collapsible-header" onclick="toggleCard('card-github')">
+            <span>¿POR QUÉ GITHUB?</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+          <div class="collapsible-body">
             <ul>
               <li><strong>Alojamiento gratuito:</strong> La página no te cobra mensualmente por usarla.</li>
               <li><strong>Carga rápida:</strong> Tiene una infraestructura espectacular para el tiempo de carga.</li>
-              <li><strong>Actualización fácil:</strong> Con el debido conocimiento de códigos, se actualiza en minutos. (Si no conocés, tranqui, estoy yo).</li>
+              <li><strong>Actualización fácil:</strong> Con el debido conocimiento de códigos, se actualiza en minutos. Si no conocés, tranqui, estoy yo.</li>
             </ul>
           </div>
         </div>
 
-        <!-- Tarjeta 2: ¿POR QUÉ ELEGIRME? -->
-        <div class="card" id="card-elegirme">
-          <div class="card-header" onclick="toggleCard('card-elegirme')">
-            ¿POR QUÉ ELEGIRME?
-            <span class="icon">▼</span>
+        <!-- TARJETA 3: ¿POR QUÉ ELEGIRME? (PLEGABLE) -->
+        <div class="window-card collapsible-card" id="card-elegirme">
+          <div class="collapsible-header" onclick="toggleCard('card-elegirme')">
+            <span>¿POR QUÉ ELEGIRME?</span>
+            <span class="toggle-arrow">▼</span>
           </div>
-          <div class="card-body">
+          <div class="collapsible-body">
             <ul>
               <li>Diseño único, funcional y adaptado a tu marca.</li>
               <li>Experiencia trabajando con emprendedores y pequeños negocios como el tuyo.</li>
@@ -197,12 +441,26 @@
           </div>
         </div>
 
+        <!-- TARJETA 4: DUDAS / CONSULTA -->
+        <div class="window-card">
+          <div class="card-titlebar">
+            ¿TENÉS DUDAS?
+            <span class="card-close">✕</span>
+          </div>
+          <div class="card-content">
+            <a href="https://wa.me/" class="cta-button" target="_blank">
+              SOLICITAR CONSULTA POR WHATSAPP
+            </a>
+          </div>
+        </div>
+
       </div>
 
-      <!-- BOTÓN CONSULTA WHATSAPP -->
-      <a href="https://wa.me/TUNUMERODETELEFONO" target="_blank" class="ws-button">
-        SOLICITAR CONSULTA POR WHATSAPP
-      </a>
+      <!-- BARRA DE DESPLAZAMIENTO DERECHA -->
+      <div class="scrollbar-right">
+        <span class="scroll-arrow">▲</span>
+        <span class="scroll-arrow">▼</span>
+      </div>
 
     </div>
   </div>
@@ -210,14 +468,14 @@
   <script>
     function toggleCard(cardId) {
       const card = document.getElementById(cardId);
-      const icon = card.querySelector('.icon');
+      const arrow = card.querySelector('.toggle-arrow');
       
       card.classList.toggle('collapsed');
       
       if (card.classList.contains('collapsed')) {
-        icon.textContent = '▲';
+        arrow.textContent = '▲';
       } else {
-        icon.textContent = '▼';
+        arrow.textContent = '▼';
       }
     }
   </script>
