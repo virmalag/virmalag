@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIR MALAG // WEB STUDIO — Páginas Web para Emprendedores</title>
+  
+  <!-- Tipografía Cyber/Techno de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome para Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* =========================================================
+       VARIABLES Y ESTILOS GLOBALES (PINK & TECHNO)
+       ========================================================= */
+    :root {
+      --bg-dark: #090514;
+      --bg-card: #120a27;
+      --pink-neon: #ff007f;
+      --pink-glow: #ff2a9d;
+      --purple-neon: #9d00ff;
+      --cyan-neon: #00f0ff;
+      --text-main: #f0e6ff;
+      --text-muted: #a79cb8;
+      --border-color: rgba(255, 0, 127, 0.3);
+      --font-title: 'Orbitron', sans-serif;
+      --font-tech: 'Rajdhani', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(255, 0, 127, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(157, 0, 255, 0.12) 0%, transparent 40%),
+        linear-gradient(rgba(18, 10, 39, 0.7) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(18, 10, 39, 0.7) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    /* Contenedor principal */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Títulos con efecto Neón */
+    h1, h2, h3, h4 {
+      font-family: var(--font-title);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #fff;
+      text-shadow: 0 0 10px var(--pink-neon), 0 0 20px var(--pink-neon);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 50px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Botones Neón */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-family: var(--font-tech);
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-pink {
+      background: linear-gradient(135deg, var(--pink-neon), var(--purple-neon));
+      color: #fff;
+      border: none;
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+    }
+
+    .btn-pink:hover {
+      box-shadow: 0 0 25px rgba(255, 0, 127, 0.9);
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cyan-neon);
+      border: 1px solid var(--cyan-neon);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+      transform: translateY(-3px);
+    }
+
+    /* =========================================================
+       1. HEADER / NAVEGACIÓN
+       ========================================================= */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(9, 5, 20, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo span {
+      color: var(--pink-neon);
+      text-shadow: 0 0 8px var(--pink-neon);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-family: var(--font-tech);
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--pink-neon);
+      text-shadow: 0 0 5px var(--pink-neon);
+    }
+
+    /* =========================================================
+       2. HERO SECTION
+       ========================================================= */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(255, 0, 127, 0.1);
+      border: 1px solid var(--pink-neon);
+      color: var(--pink-neon);
+      font-family: var(--font-tech);
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      text-shadow: 0 0 5px var(--pink-neon);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 25px;
+      background: linear-gradient(180deg, #ffffff 30%, var(--pink-neon) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================================================
+       3. POR QUÉ UNA WEB
+       ========================================================= */
+    .section-padding {
+      padding: 90px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 35px;
+      position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--pink-neon), var(--purple-neon));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 0, 127, 0.2);
+      border-color: var(--pink-neon);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--pink-neon);
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px var(--pink-neon);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* =========================================================
+       4. POR QUÉ GITHUB
+       ========================================================= */
+    .github-box {
+      background: linear-gradient(135deg, rgba(18, 10, 39, 0.9), rgba(9, 5, 20, 0.9));
+      border: 1px solid var(--cyan-neon);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    }
+
+    .github-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .github-item {
+      display: flex;
+      gap: 15px;
+    }
+
+    .github-item i {
+      font-size: 1.8rem;
+      color: var(--cyan-neon);
+      text-shadow: 0 0 8px var(--cyan-neon);
+    }
+
+    .github-item h4 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .github-item p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* =========================================================
+       5. POR QUÉ ELEGIRME (SOBRE MÍ)
+       ========================================================= */
+    .about-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-img-box {
+      width: 100%;
+      height: 380px;
+      background: linear-gradient(135deg, var(--purple-neon), var(--pink-neon));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      color: #fff;
+      position: relative;
+      box-shadow: 0 0 30px rgba(255, 0, 127, 0.4);
+    }
+
+    .about-text h2 {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    /* =========================================================
+       6. PLANES Y SERVICIOS
+       ========================================================= */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px 30px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s;
+    }
+
+    .price-card.featured {
+      border-color: var(--pink-neon);
+      box-shadow: 0 0 30px rgba(255, 0, 127, 0.25);
+    }
+
+    .popular-tag {
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      background: var(--pink-neon);
+      color: #fff;
+      font-family: var(--font-tech);
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+
+    .price-header h3 {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .price-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+      min-height: 45px;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 35px;
+    }
+
+    .price-features li {
+      margin-bottom: 12px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .price-features li i {
+      color: var(--pink-neon);
+    }
+
+    /* =========================================================
+       7. PORTAFOLIO
+       ========================================================= */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .portfolio-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      transition: all 0.3s;
+    }
+
+    .portfolio-card:hover {
+      border-color: var(--cyan-neon);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+    }
+
+    .portfolio-tag {
+      font-family: var(--font-tech);
+      color: var(--cyan-neon);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .portfolio-card h3 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .portfolio-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .portfolio-link {
+      color: #fff;
+      text-decoration: none;
+      font-family: var(--font-tech);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+    }
+
+    .portfolio-link:hover {
+      color: var(--pink-neon);
+    }
+
+    /* =========================================================
+       8. FOOTER / CONTACTO
+       ========================================================= */
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(255, 0, 127, 0.1));
+      border-top: 1px solid var(--border-color);
+      padding: 80px 0;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 30px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.1rem; }
+      .about-wrapper { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">VIR MALAG <span>// WEB STUDIO</span></a>
+      <ul class="nav-links">
+        <li><a href="#por-que-web">Por qué una Web</a></li>
+        <li><a href="#github">GitHub Pages</a></li>
+        <li><a href="#sobre-mi">Por qué elegirme</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#portafolio">Portafolio</a></li>
+      </ul>
+      <a href="https://wa.me/543492210985?text=Hola%20Vir!%20Quiero%20consultar%20por%20una%20p%C3%A1gina%20web" target="_blank" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">
+        <i class="fab fa-whatsapp"></i> Contactar
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero container">
+    <span class="hero-badge">// PRESENCIA DIGITAL ESTRATÉGICA</span>
+    <h1>Potenciá tu marca con una página web moderna, rápida y a tu medida</h1>
+    <p>Diseño y desarrollo sitios web funcionales para emprendedores y pequeños negocios que buscan proyectar confianza, destacar de la competencia y convertir visitas en ventas.</p>
+    <div class="hero-buttons">
+      <a href="#planes" class="btn btn-pink">
+        <i class="fas fa-rocket"></i> Ver Planes y Servicios
+      </a>
+      <a href="https://wa.me/543492210985?text=Hola%20Vir!%20Quiero%20asesoramiento%20para%20mi%20p%C3%A1gina%20web" target="_blank" class="btn btn-outline">
+        <i class="fab fa-whatsapp"></i> Chatear por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- POR QUÉ UNA WEB -->
+  <section id="por-que-web" class="section-padding container">
+    <h2 class="section-title">¿Por qué tu negocio necesita una web?</h2>
+    <p class="section-subtitle">Las redes sociales son excelentes para llamar la atención, pero tu página web es el lugar donde se concretan las decisiones.</p>
+    
+    <div class="grid-3">
+      <div class="card">
+        <i class="fas fa-store card-icon"></i>
+        <h3>Tu vidriera 24/7 sin algoritmos</h3>
+        <p>Las redes sociales cambian sus reglas todo el tiempo. En tu web, vos tenés el control absoluto sobre cómo presentás tus productos o servicios sin depender de quién te ve hoy.</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-shield-halved card-icon"></i>
+        <h3>Confianza e Imagen Profesional</h3>
+        <p>Un sitio web propio le demuestra a tus clientes que tu negocio es real, sólido y profesional, elevando inmediatamente la percepción de valor de lo que ofrecés.</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-clock card-icon"></i>
+        <h3>Todo organizado en un solo lugar</h3>
+        <p>Ahorrá tiempo respondiendo mensajes repetitivos. Reuní en un solo enlace tus horarios, catálogo, ubicación en Google Maps y botón directo a tu WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ GITHUB PAGES -->
+  <section id="github" class="section-padding container">
+    <div class="github-box">
+      <h2 class="section-title" style="text-align: left; font-size: 1.8rem;">¿Por qué alojamos tu web en GitHub Pages?</h2>
+      <p style="color: var(--text-muted);">Te ofrecemos una solución tecnológica moderna, segura y sin sorpresas a fin de mes.</p>
+
+      <div class="github-grid">
+        <div class="github-item">
+          <i class="fas fa-coins"></i>
+          <div>
+            <h4>Cero costos de mantenimiento</h4>
+            <p>Olvidate de pagar renovaciones mensuales de servidores o hostings costosos.</p>
+          </div>
+        </div>
+
+        <div class="github-item">
+          <i class="fas fa-bolt"></i>
+          <div>
+            <h4>Carga ultrarrápida</h4>
+            <p>Tu sitio cargará de manera instantánea, mejorando la experiencia de tus clientes.</p>
+          </div>
+        </div>
+
+        <div class="github-item">
+          <i class="fas fa-lock"></i>
+          <div>
+            <h4>Seguridad Garantizada</h4>
+            <p>Infraestructura respaldada mundialmente, libre de caídas o ataques de hackeo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ / POR QUÉ ELEGIRME -->
+  <section id="sobre-mi" class="section-padding container">
+    <div class="about-wrapper">
+      <div class="about-image">
+        <div class="about-img-box">
+          VIR MALAG
+        </div>
+      </div>
+      <div class="about-text">
+        <h2 class="section-title">Hola, soy Vir Malag 👋</h2>
+        <p>Acompaño a emprendedores y pequeños negocios a dar el salto al mundo digital de manera profesional.</p>
+        <p>No creo en las plantillas genéricas ni saturadas. Me enfoco en diseñar sitios funcionales, estéticos y limpios, pensados específicamente para que tus clientes encuentren lo que buscan rápido y se contacten vos.</p>
+        <p>Me encargo de todo el proceso técnico para que no tengas que preocuparte por nada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANES -->
+  <section id="planes" class="section-padding container">
+    <h2 class="section-title">Propuestas a tu medida</h2>
+    <p class="section-subtitle">Opciones pensadas para acompañar la etapa actual de tu emprendimiento.</p>
+
+    <div class="pricing-grid">
+      <!-- Plan Express -->
+      <div class="price-card">
+        <div class="price-header">
+          <h3>Plan Express</h3>
+          <p class="price-desc">Ideal para empezar rápido y con una presencia limpia y profesional.</p>
+        </div>
+        <ul class="price-features">
+          <li><i class="fas fa-check"></i> Landing Page (Página única optimizada)</li>
+          <li><i class="fas fa-check"></i> Presentación de marca y servicios</li>
+          <li><i class="fas fa-check"></i> Galería de productos/fotos</li>
+          <li><i class="fas fa-check"></i> Ubicación Google Maps y horarios</li>
+          <li><i class="fas fa-check"></i> Enlaces a redes y botón directo a WhatsApp</li>
+          <li><i class="fas fa-check"></i> Alojamiento en GitHub Pages incluido</li>
+        </ul>
+        <a href="https://wa.me/543492210985?text=Hola%20Vir!%20Me%20interesa%20el%20Plan%20Express" target="_blank" class="btn btn-outline" style="text-align: center; justify-content: center;">
+          Consultar por Plan Express
+        </a>
+      </div>
+
+      <!-- Plan Negocio Pro -->
+      <div class="price-card featured">
+        <span class="popular-tag">RECOMENDADO</span>
+        <div class="price-header">
+          <h3>Plan Negocio Pro</h3>
+          <p class="price-desc">Para marcas que buscan una experiencia más completa e interactiva.</p>
+        </div>
+        <ul class="price-features">
+          <li><i class="fas fa-check"></i> Sitio web multipágina o secciones avanzadas</li>
+          <li><i class="fas fa-ch
