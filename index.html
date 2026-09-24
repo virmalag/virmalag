@@ -15,31 +15,33 @@
         }
 
         body {
-            /* Fondo estilo checkerboard / ajedrezado retro */
-            background-color: #e5e5e5;
-            background-image: 
-                linear-gradient(45deg, #111 25%, transparent 25%), 
-                linear-gradient(-45deg, #111 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, #111 75%), 
-                linear-gradient(-45deg, transparent 75%, #111 75%);
-            background-size: 60px 60px;
-            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+            /* FONDO HÍBRIDO: Degradado Tornasolado + Ondas/Ajedrez Distorsionado */
+            background: 
+                /* Capa 1: Cuadrícula y Ondas SVG transparentes */
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='waveGrid' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 0 40 Q 20 20, 40 40 T 80 40' fill='none' stroke='rgba(0,0,0,0.18)' stroke-width='2'/%3E%3Cpath d='M 40 0 Q 20 20, 40 40 T 40 80' fill='none' stroke='rgba(0,0,0,0.18)' stroke-width='2'/%3E%3Crect x='0' y='0' width='40' height='40' fill='rgba(0,0,0,0.04)'/%3E%3Crect x='40' y='40' width='40' height='40' fill='rgba(0,0,0,0.04)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23waveGrid)'/%3E%3C/svg%3E"),
+                /* Capa 2: Degradado Líquido / Iridescent Mesh */
+                radial-gradient(circle at 15% 20%, #fecfef 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, #a1c4fd 0%, transparent 45%),
+                radial-gradient(circle at 50% 80%, #ff9a9e 0%, transparent 50%),
+                linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            background-attachment: fixed;
             color: #000;
-            padding-bottom: 40px;
+            padding-bottom: 50px;
             min-height: 100vh;
         }
 
         /* BARRA SUPERIOR PROGRAMA DE DISEÑO */
         .app-header {
             background: #d8c2d8;
-            border-bottom: 2px solid #000;
+            border-bottom: 2.5px solid #000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 12px;
+            padding: 8px 14px;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .layer-controls {
@@ -51,122 +53,160 @@
         }
 
         .badge-box {
-            border: 1px solid #000;
+            border: 1.5px solid #000;
             background: #fff;
             padding: 2px 6px;
-            box-shadow: 1px 1px 0px #000;
+            box-shadow: 1.5px 1.5px 0px #000;
         }
 
+        /* TÍTULO PRINCIPAL CON DEGRADADO */
         .main-brand {
             font-weight: 900;
             font-style: italic;
             font-size: 1.3rem;
             letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #d81b60, #7b1fa2, #0056b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* LAYOUT PRINCIPAL CON PANEL LATERAL Y CONTENIDO */
+        /* LAYOUT PRINCIPAL */
         .app-viewport {
             display: flex;
             max-width: 1000px;
             margin: 0 auto;
         }
 
-        /* Panel Izquierdo (Herramientas / Ojos de capas) */
+        /* PANEL LATERAL (HERRAMIENTAS DE CAPAS) */
         .sidebar-tools {
             width: 45px;
-            background: #d3b3db;
-            border-right: 2px solid #000;
+            background: rgba(211, 179, 219, 0.85);
+            backdrop-filter: blur(4px);
+            border-right: 2.5px solid #000;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 15px;
+            padding-top: 20px;
             gap: 12px;
         }
 
         .eye-icon {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border: 1.5px solid #000;
             background: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            box-shadow: 1px 1px 0px #000;
+            font-size: 11px;
+            box-shadow: 1.5px 1.5px 0px #000;
+            cursor: pointer;
         }
 
-        /* ARRASTRABLE / ÁREA DE VENTANAS */
+        /* ÁREA DE VENTANAS */
         .canvas-area {
             flex: 1;
-            padding: 20px 15px;
+            padding: 25px 15px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        /* VENTANAS ESTILO UI RETRO */
+        /* VENTANAS DESPLEGABLES */
         .window-card {
-            background: #4deeea; /* Fondo turquesa de los bordes externos */
+            background: #4deeea; /* Borde turquesa retro */
             border: 2.5px solid #000;
             border-radius: 12px;
             box-shadow: 6px 6px 0px #000;
             overflow: hidden;
-            position: relative;
+            transition: all 0.2s ease;
         }
 
         .window-top {
-            background: #d81b60; /* Rosa fucsia */
-            border-bottom: 2px solid #000;
-            padding: 8px 15px;
+            background: #d81b60; /* Cabecera rosa fucsia */
+            border-bottom: 2.5px solid #000;
+            padding: 10px 16px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
-        }
-
-        .close-btn {
-            font-weight: bold;
-            font-size: 1.1rem;
             cursor: pointer;
+            user-select: none;
         }
 
+        /* TÍTULOS CON DEGRADADO TORNASOLADO */
+        .window-title-gradient {
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.35rem;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            /* Gradient Tornasolado */
+            background: linear-gradient(90deg, #ffffff 0%, #ffd1ff 50%, #8bf2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+        }
+
+        .toggle-btn {
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: #fff;
+            border: 1.5px solid #000;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            box-shadow: 1.5px 1.5px 0px #000;
+            transition: transform 0.3s ease;
+        }
+
+        /* CONTENIDO COLAPSABLE */
         .window-content {
-            background: #f4f4f4;
-            margin: 3px;
+            background: #fdfdfd;
+            margin: 4px;
             border: 2px solid #000;
             border-radius: 8px;
             padding: 20px;
+            max-height: 1000px;
+            opacity: 1;
+            overflow: hidden;
+            transition: max-height 0.35s ease-in-out, opacity 0.25s ease, padding 0.35s ease;
         }
 
-        /* TIPOGRAFÍA DE TÍTULOS Y TEXTO */
-        h1, h2 {
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            line-height: 1;
-            letter-spacing: -0.5px;
-            margin-bottom: 12px;
+        /* Estado Plegado / Colapsado */
+        .window-card.collapsed .window-content {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border: none;
+            margin: 0;
         }
 
-        .hero-card h1 {
-            font-size: 2.1rem;
-            color: #000;
+        .window-card.collapsed .toggle-btn {
+            transform: rotate(-90deg);
+        }
+
+        .window-card.collapsed {
+            border-bottom-width: 2.5px;
         }
 
         p {
             font-size: 0.95rem;
-            line-height: 1.4;
+            line-height: 1.45;
             color: #222;
         }
 
-        /* GRILLA DOBLE PARA TARJETAS EN COMPU */
+        /* GRILLA EN DESKTOP */
         .grid-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
-        /* LISTAS Y SECCIONES DE PROPUESTAS/TRABAJOS */
         .feature-list {
             list-style: none;
             display: flex;
@@ -175,30 +215,24 @@
             margin-top: 10px;
         }
 
-        .feature-item {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
         .feature-item strong {
             font-size: 0.95rem;
         }
 
-        /* BOTONES DE CONTACTO Y PORTAFOLIO */
+        /* BOTONES */
         .btn-magenta {
             background: #d81b60;
             color: #fff;
             border: 2px solid #000;
             padding: 12px 20px;
             font-weight: 900;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             text-transform: uppercase;
             width: 100%;
             border-radius: 6px;
             box-shadow: 4px 4px 0px #000;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 12px;
             display: block;
             text-align: center;
             text-decoration: none;
@@ -224,19 +258,19 @@
             box-shadow: 6px 6px 0px #000;
         }
 
-        /* ADAPTACIÓN PARA CELULARES */
+        /* RESPONSIVE */
         @media (max-width: 700px) {
             .sidebar-tools { display: none; }
             .grid-row { grid-template-columns: 1fr; }
             .main-brand { font-size: 1rem; }
-            .hero-card h1 { font-size: 1.6rem; }
-            .canvas-area { padding: 12px 8px; }
+            .window-title-gradient { font-size: 1.1rem; }
+            .canvas-area { padding: 15px 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR TIPO SOFTWARE DE DISEÑO -->
+    <!-- BARRA SUPERIOR PROGRAMA DE DISEÑO -->
     <header class="app-header">
         <div class="layer-controls">
             <span>LAYERS</span>
@@ -246,7 +280,7 @@
     </header>
 
     <div class="app-viewport">
-        <!-- BARRA LATERAL (HERRAMIENTAS DE CAPA) -->
+        <!-- BARRA LATERAL -->
         <aside class="sidebar-tools">
             <div class="eye-icon">👁</div>
             <div class="eye-icon">👁</div>
@@ -255,30 +289,30 @@
             <div class="eye-icon">👁</div>
         </aside>
 
-        <!-- ÁREA PRINCIPAL CON VENTANAS DE CONTENIDO -->
+        <!-- ÁREA PRINCIPAL CON VENTANAS -->
         <main class="canvas-area">
 
             <!-- HERO / BIENVENIDA -->
-            <article class="window-card hero-card">
-                <div class="window-top">
-                    <span class="close-btn">✕</span>
+            <article class="window-card">
+                <div class="window-top" onclick="toggleWindow(this)">
+                    <h1 class="window-title-gradient">¿TE GUSTARÍA UNA PÁGINA COMO ESTA?</h1>
+                    <div class="toggle-btn">▾</div>
                 </div>
                 <div class="window-content">
-                    <h1>¿TE GUSTARÍA UNA PÁGINA COMO ESTA?</h1>
                     <p>¡Claro que sí! Esta es una muestra de cómo podría verse tu próximo sitio web, diseñado exclusivamente para tu emprendimiento por <strong>Vir Malag Web Studio</strong>. Un diseño único, funcional y adaptado a tu marca.</p>
                 </div>
             </article>
 
-            <!-- FILA DE 2 COLUMNAS (PROPUESTAS Y TRABAJOS) -->
+            <!-- FILA 1: PROPUESTAS Y TRABAJOS -->
             <div class="grid-row">
 
                 <!-- PROPUESTAS -->
                 <article class="window-card">
-                    <div class="window-top">
-                        <span class="close-btn">✕</span>
+                    <div class="window-top" onclick="toggleWindow(this)">
+                        <h2 class="window-title-gradient">PROPUESTAS</h2>
+                        <div class="toggle-btn">▾</div>
                     </div>
                     <div class="window-content">
-                        <h2>PROPUESTAS</h2>
                         <div class="feature-list">
                             <div class="feature-item">
                                 <strong>✦ Plan Express</strong>
@@ -294,11 +328,11 @@
 
                 <!-- TRABAJOS -->
                 <article class="window-card">
-                    <div class="window-top">
-                        <span class="close-btn">✕</span>
+                    <div class="window-top" onclick="toggleWindow(this)">
+                        <h2 class="window-title-gradient">TRABAJOS</h2>
+                        <div class="toggle-btn">▾</div>
                     </div>
                     <div class="window-content">
-                        <h2>TRABAJOS</h2>
                         <p>Sitios web interactivos creados para marcas y proyectos reales.</p>
                         <a href="#contact" class="btn-magenta">Ver portafolio completo</a>
                     </div>
@@ -306,16 +340,16 @@
 
             </div>
 
-            <!-- FILA DE 2 COLUMNAS (¿POR QUÉ GITHUB? Y ¿POR QUÉ YO?) -->
+            <!-- FILA 2: ¿POR QUÉ GITHUB? Y ¿POR QUÉ YO? -->
             <div class="grid-row">
 
                 <!-- ¿POR QUÉ GITHUB? -->
                 <article class="window-card">
-                    <div class="window-top">
-                        <span class="close-btn">✕</span>
+                    <div class="window-top" onclick="toggleWindow(this)">
+                        <h2 class="window-title-gradient">¿POR QUÉ GITHUB?</h2>
+                        <div class="toggle-btn">▾</div>
                     </div>
                     <div class="window-content">
-                        <h2>¿POR QUÉ GITHUB?</h2>
                         <div class="feature-list">
                             <div class="feature-item">
                                 <strong>Alojamiento GRATUITO</strong>
@@ -335,11 +369,11 @@
 
                 <!-- ¿POR QUÉ YO? -->
                 <article class="window-card">
-                    <div class="window-top">
-                        <span class="close-btn">✕</span>
+                    <div class="window-top" onclick="toggleWindow(this)">
+                        <h2 class="window-title-gradient">¿POR QUÉ YO?</h2>
+                        <div class="toggle-btn">▾</div>
                     </div>
                     <div class="window-content">
-                        <h2>¿POR QUÉ YO?</h2>
                         <div class="feature-list">
                             <div class="feature-item">
                                 <p>✦ Diseño único, funcional y adaptado a tu marca.</p>
@@ -358,11 +392,11 @@
 
             <!-- CONTACTO / LLAMADO A LA ACCIÓN -->
             <article class="window-card" id="contact">
-                <div class="window-top">
-                    <span class="close-btn">✕</span>
+                <div class="window-top" onclick="toggleWindow(this)">
+                    <h2 class="window-title-gradient">¿TIENES DUDAS?</h2>
+                    <div class="toggle-btn">▾</div>
                 </div>
                 <div class="window-content" style="text-align: center;">
-                    <h2>¿TIENES DUDAS?</h2>
                     <a href="https://wa.me/" target="_blank" class="btn-magenta">
                         SOLICITAR CONSULTA POR WHATSAPP
                     </a>
@@ -373,5 +407,13 @@
         </main>
     </div>
 
+    <!-- SCRIPT PARA PLEGAR / DESPLEGAR TARJETAS -->
+    <script>
+        function toggleWindow(headerElement) {
+            const card = headerElement.parentElement;
+            card.classList.toggle('collapsed');
+        }
+    </script>
+
 </body>
-    </html>
+</html>
