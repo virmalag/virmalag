@@ -3,344 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIRMALAG _ WEB STUDIO</title>
+    <title>VIR MALAG // WEB STUDIO</title>
     
     <style>
-        /* RESET BASE Y CURSOR RETRO */
+        /* RESET BASE */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: default;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
-            /* Fondo con degradado líquido Lila/Rosa */
-            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #e0c3fc 100%);
-            background-attachment: fixed;
-            color: #111;
-            padding-top: 80px;
-            padding-bottom: 50px;
+            /* Fondo estilo checkerboard / ajedrezado retro */
+            background-color: #e5e5e5;
+            background-image: 
+                linear-gradient(45deg, #111 25%, transparent 25%), 
+                linear-gradient(-45deg, #111 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #111 75%), 
+                linear-gradient(-45deg, transparent 75%, #111 75%);
+            background-size: 60px 60px;
+            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+            color: #000;
+            padding-bottom: 40px;
             min-height: 100vh;
         }
 
-        /* 1. BARRA SUPERIOR (NAVEGACIÓN) */
-        .top-bar {
-            position: fixed;
+        /* BARRA SUPERIOR PROGRAMA DE DISEÑO */
+        .app-header {
+            background: #d8c2d8;
+            border-bottom: 2px solid #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 12px;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            background: #d3b4e3;
-            border-bottom: 2px solid #000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 16px;
             z-index: 1000;
-            box-shadow: 0 3px 0px #000;
         }
 
-        .system-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
+        .layer-controls {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: #000;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: bold;
-            padding: 4px 8px;
-            background: #fff;
-            border: 1.5px solid #000;
-            box-shadow: 2px 2px 0px #000;
-        }
-
-        .nav-links a:hover {
-            background: #ffb7c5;
-            transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0px #000;
-            cursor: pointer;
-        }
-
-        /* 2. CONTENEDOR Y VENTANAS SUPERPUESTAS */
-        .desktop-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .window-box {
-            border: 2px solid #000;
-            background-color: #ffffff;
-            box-shadow: 6px 6px 0px #000;
-            border-radius: 3px;
-            position: relative;
-        }
-
-        /* Efecto de inclinación ligera para simular escritorio retro */
-        @media (min-width: 601px) {
-            #hero { transform: rotate(-0.5deg); }
-            #about { transform: rotate(0.8deg) translateX(10px); }
-            #target { transform: rotate(-0.6deg) translateX(-8px); }
-            #projects { transform: rotate(0.4deg); }
-            #contact { transform: rotate(-0.7deg) translateX(5px); }
-
-            .window-box:hover {
-                transform: scale(1.01) rotate(0deg) !important;
-                z-index: 10;
-                box-shadow: 8px 8px 0px #000;
-            }
-        }
-
-        /* BARRA DE TÍTULO DE VENTANA (ROSA/VIOLETA) */
-        .window-header {
-            background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 60%, #a1c4fd 100%);
-            border-bottom: 2px solid #000;
-            padding: 4px 10px;
-            display: flex;
-            justify-content: space-between;
+            gap: 10px;
             align-items: center;
-            height: 32px;
-        }
-
-        .window-title {
+            font-size: 0.75rem;
             font-weight: bold;
-            font-size: 1.1rem;
         }
 
-        .window-controls {
-            display: flex;
-            gap: 4px;
-        }
-
-        .window-controls .btn-ctrl {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 20px;
-            border: 1.5px solid #000;
+        .badge-box {
+            border: 1px solid #000;
             background: #fff;
-            font-size: 11px;
-            font-weight: bold;
+            padding: 2px 6px;
             box-shadow: 1px 1px 0px #000;
         }
 
-        /* CUERPO DE LAS VENTANAS */
-        .window-body {
-            padding: 24px;
+        .main-brand {
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
         }
 
-        .hero-window h1 {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            line-height: 1.1;
-            color: #2a0845;
+        /* LAYOUT PRINCIPAL CON PANEL LATERAL Y CONTENIDO */
+        .app-viewport {
+            display: flex;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .hero-subtitle {
-            font-size: 1.05rem;
-            line-height: 1.5;
-            border-left: 4px solid #ff758c;
-            padding-left: 12px;
-        }
-
-        h2 {
-            font-size: 1.6rem;
-            margin-bottom: 14px;
-            border-bottom: 2px dashed #000;
-            padding-bottom: 4px;
-            display: inline-block;
-        }
-
-        /* CONTENIDOS INTERNOS */
-        .target-list {
-            list-style: none;
+        /* Panel Izquierdo (Herramientas / Ojos de capas) */
+        .sidebar-tools {
+            width: 45px;
+            background: #d3b3db;
+            border-right: 2px solid #000;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            align-items: center;
+            padding-top: 15px;
+            gap: 12px;
         }
 
-        .target-list li {
-            padding: 8px 12px;
-            background: #f8effb;
+        .eye-icon {
+            width: 24px;
+            height: 24px;
             border: 1.5px solid #000;
-            box-shadow: 3px 3px 0px #000;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        /* ARRASTRABLE / ÁREA DE VENTANAS */
+        .canvas-area {
+            flex: 1;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* VENTANAS ESTILO UI RETRO */
+        .window-card {
+            background: #4deeea; /* Fondo turquesa de los bordes externos */
+            border: 2.5px solid #000;
+            border-radius: 12px;
+            box-shadow: 6px 6px 0px #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .window-top {
+            background: #d81b60; /* Rosa fucsia */
+            border-bottom: 2px solid #000;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .close-btn {
             font-weight: bold;
-        }
-
-        .target-list li::before {
-            content: "✦ ";
-            color: #b152d0;
-        }
-
-        .projects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 18px;
-            margin-top: 15px;
-        }
-
-        .project-card {
-            border: 1.5px solid #000;
-            padding: 16px;
-            background: #fff0f5;
-            box-shadow: 4px 4px 0px #000;
-        }
-
-        .project-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            color: #7b1fa2;
-        }
-
-        .cta-button {
-            margin-top: 15px;
-            padding: 12px 24px;
-            border: 2px solid #000;
-            background: #ffb3ba;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 4px 4px 0px #000;
+            font-size: 1.1rem;
             cursor: pointer;
         }
 
-        .cta-button:hover {
-            background: #ff6b81;
+        .window-content {
+            background: #f4f4f4;
+            margin: 3px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        /* TIPOGRAFÍA DE TÍTULOS Y TEXTO */
+        h1, h2 {
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+
+        .hero-card h1 {
+            font-size: 2.1rem;
+            color: #000;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #222;
+        }
+
+        /* GRILLA DOBLE PARA TARJETAS EN COMPU */
+        .grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* LISTAS Y SECCIONES DE PROPUESTAS/TRABAJOS */
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .feature-item strong {
+            font-size: 0.95rem;
+        }
+
+        /* BOTONES DE CONTACTO Y PORTAFOLIO */
+        .btn-magenta {
+            background: #d81b60;
             color: #fff;
+            border: 2px solid #000;
+            padding: 12px 20px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            width: 100%;
+            border-radius: 6px;
+            box-shadow: 4px 4px 0px #000;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-cyan {
+            background: #4deeea;
+            color: #000;
+            border: 2px solid #000;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            box-shadow: 3px 3px 0px #000;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-magenta:hover, .btn-cyan:hover {
             transform: translate(-2px, -2px);
             box-shadow: 6px 6px 0px #000;
         }
 
-        /* ADAPTACIÓN A CELULARES */
-        @media (max-width: 600px) {
-            body { padding-top: 110px; }
-            .top-bar { flex-direction: column; gap: 8px; text-align: center; }
-            .nav-links a { font-size: 0.75rem; }
-            .hero-window h1 { font-size: 1.7rem; }
-            .window-body { padding: 16px; }
-            .projects-container { grid-template-columns: 1fr; }
+        /* ADAPTACIÓN PARA CELULARES */
+        @media (max-width: 700px) {
+            .sidebar-tools { display: none; }
+            .grid-row { grid-template-columns: 1fr; }
+            .main-brand { font-size: 1rem; }
+            .hero-card h1 { font-size: 1.6rem; }
+            .canvas-area { padding: 12px 8px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Barra Superior -->
-    <header class="top-bar">
-        <div class="system-title">✦ VIRMALAG _ WEB STUDIO</div>
-        <nav class="nav-links">
-            <a href="#hero">[ Inicio ]</a>
-            <a href="#about">[ Qué Hago ]</a>
-            <a href="#target">[ Para Quién ]</a>
-            <a href="#projects">[ Proyectos ]</a>
-            <a href="#contact">[ Contacto ]</a>
-        </nav>
+    <!-- BARRA SUPERIOR TIPO SOFTWARE DE DISEÑO -->
+    <header class="app-header">
+        <div class="layer-controls">
+            <span>LAYERS</span>
+            <div class="badge-box">OPACITY 100%</div>
+        </div>
+        <div class="main-brand">VIR MALAG // WEB STUDIO</div>
     </header>
 
-    <main class="desktop-container">
+    <div class="app-viewport">
+        <!-- BARRA LATERAL (HERRAMIENTAS DE CAPA) -->
+        <aside class="sidebar-tools">
+            <div class="eye-icon">👁</div>
+            <div class="eye-icon">👁</div>
+            <div class="eye-icon">👁</div>
+            <div class="eye-icon">👁</div>
+            <div class="eye-icon">👁</div>
+        </aside>
 
-        <!-- HERO -->
-        <section id="hero" class="window-box hero-window">
-            <div class="window-header">
-                <span class="window-title">welcome_screen.exe</span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">_</span>
-                    <span class="btn-ctrl">□</span>
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h1>BIENVENIDX A VIRMALAG WEB STUDIO</h1>
-                <p class="hero-subtitle">Diseño páginas web para emprendedores y negocios que quieren tener una presencia online propia.</p>
-            </div>
-        </section>
+        <!-- ÁREA PRINCIPAL CON VENTANAS DE CONTENIDO -->
+        <main class="canvas-area">
 
-        <!-- ¿QUÉ HAGO? -->
-        <section id="about" class="window-box">
-            <div class="window-header">
-                <span class="window-title">que_hago.txt</span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
+            <!-- HERO / BIENVENIDA -->
+            <article class="window-card hero-card">
+                <div class="window-top">
+                    <span class="close-btn">✕</span>
                 </div>
-            </div>
-            <div class="window-body">
-                <h2>¿QUÉ HAGO?</h2>
-                <p>Diseño y desarrollo de páginas web a medida, funcionales y que reflejen la identidad de tu marca.</p>
-            </div>
-        </section>
+                <div class="window-content">
+                    <h1>¿TE GUSTARÍA UNA PÁGINA COMO ESTA?</h1>
+                    <p>¡Claro que sí! Esta es una muestra de cómo podría verse tu próximo sitio web, diseñado exclusivamente para tu emprendimiento por <strong>Vir Malag Web Studio</strong>. Un diseño único, funcional y adaptado a tu marca.</p>
+                </div>
+            </article>
 
-        <!-- ¿PARA QUIÉN? -->
-        <section id="target" class="window-box">
-            <div class="window-header">
-                <span class="window-title">para_quien.doc</span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h2>¿PARA QUIÉN?</h2>
-                <ul class="target-list">
-                    <li>Emprendedores</li>
-                    <li>Profesionales independientes</li>
-                    <li>Negocios locales</li>
-                    <li>Proyectos personales y creativos</li>
-                </ul>
-            </div>
-        </section>
+            <!-- FILA DE 2 COLUMNAS (PROPUESTAS Y TRABAJOS) -->
+            <div class="grid-row">
 
-        <!-- PROYECTOS -->
-        <section id="projects" class="window-box">
-            <div class="window-header">
-                <span class="window-title">proyectos.app</span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h2>PROYECTOS</h2>
-                <p>Explora algunos de los entornos web que he construido:</p>
-                <div class="projects-container">
-                    <article class="project-card">
-                        <h3>[PÁGINA EDUCATIVA]</h3>
-                        <p>Landing page interactiva para la carrera de Lengua del ISP2.</p>
-                    </article>
-                    <article class="project-card">
-                        <h3>[Pelitos en la ropa]</h3>
-                        <p>Página premium para ONG.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
+                <!-- PROPUESTAS -->
+                <article class="window-card">
+                    <div class="window-top">
+                        <span class="close-btn">✕</span>
+                    </div>
+                    <div class="window-content">
+                        <h2>PROPUESTAS</h2>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <strong>✦ Plan Express</strong>
+                                <p>Una página única para mostrar tu negocio de forma ágil.</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>✦ Plan Pro</strong>
+                                <p>Sitio completo con múltiples secciones e integraciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-        <!-- CONTACTO -->
-        <section id="contact" class="window-box">
-            <div class="window-header">
-                <span class="window-title">contacto.exe</span>
-                <div class="window-controls">
-                    <span class="btn-ctrl">X</span>
-                </div>
-            </div>
-            <div class="window-body">
-                <h2>CONTACTO</h2>
-                <p>¿Listo para llevar tu negocio al siguiente nivel?</p>
-                <button class="cta-button">Enviar Mensaje</button>
-            </div>
-        </section>
+                <!-- TRABAJOS -->
+                <article class="window-card">
+                    <div class="window-top">
+                        <span class="close-btn">✕</span>
+                    </div>
+                    <div class="window-content">
+                        <h2>TRABAJOS</h2>
+                        <p>Sitios web interactivos creados para marcas y proyectos reales.</p>
+                        <a href="#contact" class="btn-magenta">Ver portafolio completo</a>
+                    </div>
+                </article>
 
-    </main>
+            </div>
+
+            <!-- FILA DE 2 COLUMNAS (¿POR QUÉ GITHUB? Y ¿POR QUÉ YO?) -->
+            <div class="grid-row">
+
+                <!-- ¿POR QUÉ GITHUB? -->
+                <article class="window-card">
+                    <div class="window-top">
+                        <span class="close-btn">✕</span>
+                    </div>
+                    <div class="window-content">
+                        <h2>¿POR QUÉ GITHUB?</h2>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <strong>Alojamiento GRATUITO</strong>
+                                <p>No se cobra hosting mensual.</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>Carga RÁPIDA</strong>
+                                <p>Infraestructura global de vanguardia.</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>Actualización FÁCIL</strong>
+                                <p>Mantenimiento ágil y sin complicaciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ¿POR QUÉ YO? -->
+                <article class="window-card">
+                    <div class="window-top">
+                        <span class="close-btn">✕</span>
+                    </div>
+                    <div class="window-content">
+                        <h2>¿POR QUÉ YO?</h2>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <p>✦ Diseño único, funcional y adaptado a tu marca.</p>
+                            </div>
+                            <div class="feature-item">
+                                <p>✦ Experiencia trabajando con emprendedores y pequeños negocios.</p>
+                            </div>
+                            <div class="feature-item">
+                                <p>✦ Trato personal y directo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- CONTACTO / LLAMADO A LA ACCIÓN -->
+            <article class="window-card" id="contact">
+                <div class="window-top">
+                    <span class="close-btn">✕</span>
+                </div>
+                <div class="window-content" style="text-align: center;">
+                    <h2>¿TIENES DUDAS?</h2>
+                    <a href="https://wa.me/" target="_blank" class="btn-magenta">
+                        SOLICITAR CONSULTA POR WHATSAPP
+                    </a>
+                    <a href="#" class="btn-cyan">Conocer más sobre GitHub Pages</a>
+                </div>
+            </article>
+
+        </main>
+    </div>
 
 </body>
-</html>
+    </html>
