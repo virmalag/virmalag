@@ -3,130 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIR MALAG // WEB STUDIO</title>
-    
+    <title>Vir Malag // Web Studio</title>
     <style>
-        /* RESET BASE */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
 
         body {
-            /* FONDO HÍBRIDO: Tablero de Ajedrez Ondulado + Degradado Tornasolado Y2K */
-            background: 
-                /* Capa 1: Tablero de ajedrez con distorsión de ondas SVG */
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M0 0 C 30 20, 30 40, 0 60 C 30 80, 30 100, 0 120 L 60 120 C 30 100, 30 80, 60 60 C 30 40, 30 20, 60 0 Z' fill='%23000000' fill-opacity='0.85'/%3E%3Cpath d='M60 0 C 90 20, 90 40, 60 60 C 90 80, 90 100, 60 120 L 120 120 C 90 100, 90 80, 120 60 C 90 40, 90 20, 120 0 Z' fill='%23000000' fill-opacity='0.85'/%3E%3C/svg%3E"),
-                /* Capa 2: Degradado Líquido Holográfico / Iridescent Mesh */
-                radial-gradient(circle at 15% 20%, #4deeea 0%, transparent 40%),
-                radial-gradient(circle at 85% 30%, #7b1fa2 0%, transparent 50%),
-                radial-gradient(circle at 50% 70%, #00d2ff 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, #ff758c 0%, transparent 40%),
-                linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #e0c3fc 100%);
-            background-size: 120px 120px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+            font-family: 'Arial', sans-serif;
+            background-image: url('fondo.png');
+            background-size: cover;
             background-attachment: fixed;
-            color: #000;
-            padding-bottom: 50px;
+            background-repeat: no-repeat;
             min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
         }
 
-        /* BARRA SUPERIOR (SOFTWARE DE DISEÑO) */
-        .app-header {
-            background: #d8c2d8;
-            border-bottom: 2.5px solid #000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 14px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        .layer-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            font-size: 0.75rem;
-            font-weight: bold;
+        header {
+            text-align: center;
+            margin-bottom: 60px;
         }
 
-        .badge-box {
-            border: 1.5px solid #000;
-            background: #fff;
-            padding: 2px 6px;
-            box-shadow: 1.5px 1.5px 0px #000;
-        }
-
-        .main-brand {
+        .header-title {
+            font-size: 3.5em;
             font-weight: 900;
             font-style: italic;
-            font-size: 1.3rem;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #d81b60, #7b1fa2, #0056b3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            letter-spacing: -1px;
         }
 
-        /* LAYOUT PRINCIPAL */
-        .app-viewport {
-            display: flex;
-            max-width: 1000px;
-            margin: 0 auto;
+        /* Grid de 2 columnas */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
-        /* PANEL LATERAL DE CAPAS */
-        .sidebar-tools {
-            width: 45px;
-            background: rgba(211, 179, 219, 0.85);
-            backdrop-filter: blur(4px);
-            border-right: 2.5px solid #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-            gap: 12px;
-        }
-
-        .eye-icon {
-            width: 26px;
-            height: 26px;
-            border: 1.5px solid #000;
-            background: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            box-shadow: 1.5px 1.5px 0px #000;
-        }
-
-        /* ÁREA DE VENTANAS */
-        .canvas-area {
-            flex: 1;
-            padding: 25px 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* VENTANAS ESTILO UI RETRO */
-        .window-card {
-            background: #4deeea; /* Borde turquesa */
-            border: 2.5px solid #000;
-            border-radius: 12px;
-            box-shadow: 6px 6px 0px #000;
+        .card {
+            background: white;
+            border-radius: 20px;
+            border: 4px solid #FF1493;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
             overflow: hidden;
-            transition: all 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
 
-        .window-top {
-            background: #d81b60; /* Rosa fucsia */
-            border-bottom: 2.5px solid #000;
-            padding: 10px 16px;
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #FF1493 0%, #00CED1 100%);
+            padding: 20px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -134,286 +76,362 @@
             user-select: none;
         }
 
-        /* TÍTULOS CON DEGRADADO TORNASOLADO */
-        .window-title-gradient {
+        .card-title {
+            font-size: 2em;
             font-weight: 900;
             font-style: italic;
-            font-size: 1.35rem;
+            color: black;
             text-transform: uppercase;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #ffffff 0%, #ffd1ff 50%, #8bf2ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+            flex: 1;
         }
 
-        /* FLECHA AESTHETIC EN SVG (MÁS FLUIDA Y ESTILIZADA) */
-        .toggle-arrow {
-            width: 28px;
-            height: 28px;
-            background: #fff;
-            border: 1.5px solid #000;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 1.5px 1.5px 0px #000;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .toggle-icon {
+            font-size: 1.5em;
+            color: black;
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+            flex-shrink: 0;
         }
 
-        .toggle-arrow svg {
-            width: 14px;
-            height: 14px;
-            fill: none;
-            stroke: #000;
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .toggle-icon.open {
+            transform: rotate(180deg);
         }
 
-        /* CONTENIDO DESPLEGABLE */
-        .window-content {
-            background: #fdfdfd;
-            margin: 4px;
-            border: 2px solid #000;
-            border-radius: 8px;
-            padding: 20px;
-            max-height: 1000px;
-            opacity: 1;
-            overflow: hidden;
-            transition: max-height 0.35s ease-in-out, opacity 0.25s ease, padding 0.35s ease;
-        }
-
-        /* ESTADO PLEGADO / COLAPSADO */
-        .window-card.collapsed .window-content {
+        .card-content {
             max-height: 0;
-            opacity: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            border: none;
-            margin: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
         }
 
-        .window-card.collapsed .toggle-arrow {
-            transform: rotate(-90deg);
+        .card-content.open {
+            max-height: 1200px;
         }
 
-        p {
-            font-size: 0.95rem;
-            line-height: 1.45;
-            color: #222;
+        .card-content-inner {
+            padding: 30px;
         }
 
-        /* DISPOSICIÓN EN PARES (2 COLUMNAS) */
-        .grid-row {
+        .card-content p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .card-content strong {
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* TARJETA HERO - Ancho completo */
+        .card-hero {
+            grid-column: 1 / -1;
+        }
+
+        .card-hero .card-content-inner {
+            text-align: center;
+        }
+
+        .card-hero .card-title {
+            font-size: 2.5em;
+        }
+
+        /* PROPUESTAS */
+        .proposals-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
-        .feature-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .feature-item strong {
-            font-size: 0.95rem;
-        }
-
-        /* BOTÓN DE WHATSAPP / CONTACTO */
-        .btn-magenta {
-            background: #d81b60;
-            color: #fff;
-            border: 2px solid #000;
-            padding: 12px 20px;
-            font-weight: 900;
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            width: 100%;
-            border-radius: 6px;
-            box-shadow: 4px 4px 0px #000;
-            cursor: pointer;
-            display: block;
+        .proposal-item {
             text-align: center;
-            text-decoration: none;
-            transition: all 0.15s ease;
+            padding: 25px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            border: 2px solid #FF1493;
         }
 
-        .btn-magenta:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px #000;
+        .proposal-item h3 {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #000;
         }
 
-        /* RESPONSIVE PARES */
-        @media (max-width: 700px) {
-            .sidebar-tools { display: none; }
-            .grid-row { grid-template-columns: 1fr; }
-            .main-brand { font-size: 1rem; }
-            .window-title-gradient { font-size: 1.1rem; }
-            .canvas-area { padding: 15px 10px; }
+        .proposal-item .price {
+            font-size: 1.8em;
+            font-weight: 900;
+            color: #FF1493;
+            margin: 12px 0;
+        }
+
+        .proposal-item .details {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .proposal-item .cupo {
+            font-size: 0.9em;
+            color: #999;
+            font-style: italic;
+        }
+
+        .proposal-item .update-note {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* BENEFICIOS */
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #333;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FF1493;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .benefits-list strong {
+            color: #000;
+        }
+
+        /* ABOUT LIST */
+        .about-list {
+            list-style: none;
+        }
+
+        .about-list li {
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #333;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .about-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #FF1493;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* CLIENTES */
+        .clients-placeholder {
+            text-align: center;
+            padding: 40px 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            color: #999;
+            font-size: 1.1em;
+        }
+
+        /* CTA FINAL */
+        .card-cta {
+            grid-column: 1 / -1;
+        }
+
+        .cta-button {
+            background: #FF1493;
+            color: white;
+            padding: 20px 40px;
+            font-size: 1.4em;
+            font-weight: 900;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #E60B7F;
+            transform: scale(1.02);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.2em;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-title {
+                font-size: 1.4em;
+            }
+
+            .proposals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-content-inner {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1 class="header-title">VIR MALAG // WEB STUDIO</h1>
+        </header>
 
-    <!-- BARRA SUPERIOR PROGRAMA DE DISEÑO -->
-    <header class="app-header">
-        <div class="layer-controls">
-            <span>LAYERS</span>
-            <div class="badge-box">OPACITY 100%</div>
+        <!-- GRID DE TARJETAS PLEGABLES -->
+        <div class="cards-grid">
+            
+            <!-- TARJETA 1: HERO -->
+            <div class="card card-hero">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Te gustaría una página como esta?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <p>¡Claro que sí! Esta es una muestra de cómo podría verse tu próximo sitio web, diseñado exclusivamente para tu negocio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 2: PROPUESTAS -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">Propuestas</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <div class="proposals-grid">
+                            <div class="proposal-item">
+                                <h3>Plan Express</h3>
+                                <div class="details">Página única con dominio personalizado</div>
+                                <div class="details" style="font-size: 0.85em;">(ejemplo: lenguaisp2.github.io)</div>
+                                <div class="price">$60.000</div>
+                                <div class="cupo">Cupo limitado</div>
+                                <div class="update-note">Después de completar los cupos, los precios se actualizan.</div>
+                            </div>
+                            <div class="proposal-item">
+                                <h3>Plan Pro</h3>
+                                <div class="details">Sitio completo con múltiples páginas y dominio personalizado</div>
+                                <div class="details" style="font-size: 0.85em;">(ejemplo: pelitosenlaropa-rafaela.github.io)</div>
+                                <div class="price">$85.000</div>
+                                <div class="cupo">Cupo limitado</div>
+                                <div class="update-note">Después de completar los cupos, los precios se actualizan.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 3: ¿POR QUÉ GITHUB? -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Por qué GitHub?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <ul class="benefits-list">
+                            <li>Alojamiento gratuito (no te cobran por usar la página).</li>
+                            <li>Carga rápida (su infraestructura permite que no se tilde ni demore al cargar).</li>
+                            <li>Actualización fácil (si conocés códigos, o me contratás, se actualiza en minutos).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 4: ¿POR QUÉ YO? -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Por qué yo?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <ul class="about-list">
+                            <li>Diseño único, funcional y adaptado a tu marca.</li>
+                            <li>Experiencia trabajando con emprendedores y pequeños negocios como el tuyo.</li>
+                            <li>Trato personal y directo.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 5: ELLOS YA TRABAJAN CONMIGO -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">Ellos ya trabajan conmigo</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <div class="clients-placeholder">
+                            [Aquí irán logos, nombres o referencias de tus clientes]
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 6: ¿TENÉS DUDAS? -->
+            <div class="card card-cta">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Tenés dudas?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <button class="cta-button" onclick="window.open('https://wa.me/TU-NUMERO-AQUI', '_blank')">Hablame por WhatsApp</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="main-brand">VIR MALAG // WEB STUDIO</div>
-    </header>
-
-    <div class="app-viewport">
-        <!-- BARRA LATERAL -->
-        <aside class="sidebar-tools">
-            <div class="eye-icon">👁</div>
-            <div class="eye-icon">👁</div>
-            <div class="eye-icon">👁</div>
-            <div class="eye-icon">👁</div>
-            <div class="eye-icon">👁</div>
-        </aside>
-
-        <!-- ÁREA PRINCIPAL CON VENTANAS -->
-        <main class="canvas-area">
-
-            <!-- HERO / BIENVENIDA -->
-            <article class="window-card">
-                <div class="window-top" onclick="toggleWindow(this)">
-                    <h1 class="window-title-gradient">¿TE GUSTARÍA UNA PÁGINA COMO ESTA?</h1>
-                    <div class="toggle-arrow">
-                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <p>¡Claro que sí! Esta es una muestra de cómo podría verse tu próximo sitio web, diseñado exclusivamente para tu emprendimiento por <strong>Vir Malag Web Studio</strong>. Un diseño único, funcional y adaptado a tu marca.</p>
-                </div>
-            </article>
-
-            <!-- FILA EN PAR: PROPUESTAS Y TRABAJOS -->
-            <div class="grid-row">
-
-                <!-- PROPUESTAS -->
-                <article class="window-card">
-                    <div class="window-top" onclick="toggleWindow(this)">
-                        <h2 class="window-title-gradient">PROPUESTAS</h2>
-                        <div class="toggle-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-                        </div>
-                    </div>
-                    <div class="window-content">
-                        <div class="feature-list">
-                            <div class="feature-item">
-                                <strong>✦ Plan Express</strong>
-                                <p>Una página única para mostrar tu negocio de forma ágil.</p>
-                            </div>
-                            <div class="feature-item">
-                                <strong>✦ Plan Pro</strong>
-                                <p>Sitio completo con múltiples secciones e integraciones.</p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- TRABAJOS -->
-                <article class="window-card">
-                    <div class="window-top" onclick="toggleWindow(this)">
-                        <h2 class="window-title-gradient">TRABAJOS</h2>
-                        <div class="toggle-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-                        </div>
-                    </div>
-                    <div class="window-content">
-                        <p>Sitios web interactivos creados para marcas y proyectos reales.</p>
-                        <a href="#contact" class="btn-magenta" style="margin-top: 12px;">Ver portafolio completo</a>
-                    </div>
-                </article>
-
-            </div>
-
-            <!-- FILA EN PAR: ¿POR QUÉ GITHUB? Y ¿POR QUÉ YO? -->
-            <div class="grid-row">
-
-                <!-- ¿POR QUÉ GITHUB? -->
-                <article class="window-card">
-                    <div class="window-top" onclick="toggleWindow(this)">
-                        <h2 class="window-title-gradient">¿POR QUÉ GITHUB?</h2>
-                        <div class="toggle-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-                        </div>
-                    </div>
-                    <div class="window-content">
-                        <div class="feature-list">
-                            <div class="feature-item">
-                                <strong>Alojamiento GRATUITO</strong>
-                                <p>No se cobra hosting mensual.</p>
-                            </div>
-                            <div class="feature-item">
-                                <strong>Carga RÁPIDA</strong>
-                                <p>Infraestructura global de vanguardia.</p>
-                            </div>
-                            <div class="feature-item">
-                                <strong>Actualización FÁCIL</strong>
-                                <p>Mantenimiento ágil y sin complicaciones.</p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- ¿POR QUÉ YO? -->
-                <article class="window-card">
-                    <div class="window-top" onclick="toggleWindow(this)">
-                        <h2 class="window-title-gradient">¿POR QUÉ YO?</h2>
-                        <div class="toggle-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-                        </div>
-                    </div>
-                    <div class="window-content">
-                        <div class="feature-list">
-                            <div class="feature-item">
-                                <p>✦ Diseño único, funcional y adaptado a tu marca.</p>
-                            </div>
-                            <div class="feature-item">
-                                <p>✦ Experiencia trabajando con emprendedores y pequeños negocios.</p>
-                            </div>
-                            <div class="feature-item">
-                                <p>✦ Trato personal y directo.</p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-
-            <!-- CONTACTO / LLAMADO A LA ACCIÓN -->
-            <article class="window-card" id="contact">
-                <div class="window-top" onclick="toggleWindow(this)">
-                    <h2 class="window-title-gradient">¿TIENES DUDAS?</h2>
-                    <div class="toggle-arrow">
-                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-                    </div>
-                </div>
-                <div class="window-content" style="text-align: center;">
-                    <a href="https://wa.me/" target="_blank" class="btn-magenta">
-                        SOLICITAR CONSULTA POR WHATSAPP
-                    </a>
-                </div>
-            </article>
-
-        </main>
     </div>
 
-    <!-- SCRIPT PARA PLEGAR / DESPLEGAR TARJETAS -->
     <script>
-        function toggleWindow(headerElement) {
-            const card = headerElement.parentElement;
-            card.classList.toggle('collapsed');
+        function toggleCard(headerElement) {
+            const card = headerElement.closest('.card');
+            const content = card.querySelector('.card-content');
+            const icon = headerElement.querySelector('.toggle-icon');
+            
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
         }
-    </script>
 
+        // Abrir la primera tarjeta por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstCard = document.querySelector('.card-hero');
+            const firstHeader = firstCard.querySelector('.card-header');
+            const firstContent = firstCard.querySelector('.card-content');
+            const firstIcon = firstHeader.querySelector('.toggle-icon');
+            
+            firstContent.classList.add('open');
+            firstIcon.classList.add('open');
+        });
+    </script>
 </body>
-    </html>
+</html>
