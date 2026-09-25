@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vir Malag // Web Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('fondo.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header-title {
+            font-size: 3.5em;
+            font-weight: 900;
+            font-style: italic;
+            color: white;
+            text-shadow: 
+                -2px -2px 0 #FF1493,
+                2px -2px 0 #FF1493,
+                -2px 2px 0 #FF1493,
+                2px 2px 0 #FF1493,
+                -2px 0 0 #FF1493,
+                2px 0 0 #FF1493,
+                0 -2px 0 #FF1493,
+                0 2px 0 #FF1493,
+                3px 3px 6px rgba(0, 0, 0, 0.6);
+            letter-spacing: -1px;
+        }
+
+        /* Grid de 2 columnas */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            border: 4px solid #FF1493;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #FF1493 0%, #00CED1 100%);
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .card-title {
+            font-size: 2em;
+            font-weight: 900;
+            font-style: italic;
+            color: black;
+            text-transform: uppercase;
+            flex: 1;
+        }
+
+        .toggle-icon {
+            font-size: 1.5em;
+            color: black;
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+
+        .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+
+        .card-content.open {
+            max-height: 1200px;
+        }
+
+        .card-content-inner {
+            padding: 30px;
+        }
+
+        .card-content p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .card-content strong {
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* TARJETA HERO - Ancho completo */
+        .card-hero {
+            grid-column: 1 / -1;
+        }
+
+        .card-hero .card-content-inner {
+            text-align: center;
+        }
+
+        .card-hero .card-title {
+            font-size: 2.5em;
+        }
+
+        /* PROPUESTAS */
+        .proposals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .proposal-item {
+            text-align: center;
+            padding: 25px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            border: 2px solid #FF1493;
+        }
+
+        .proposal-item h3 {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .proposal-item .price {
+            font-size: 1.8em;
+            font-weight: 900;
+            color: #FF1493;
+            margin: 12px 0;
+        }
+
+        .proposal-item .details {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .proposal-item .cupo {
+            font-size: 0.9em;
+            color: #999;
+            font-style: italic;
+        }
+
+        .proposal-item .update-note {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* BENEFICIOS */
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #333;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FF1493;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .benefits-list strong {
+            color: #000;
+        }
+
+        /* ABOUT LIST */
+        .about-list {
+            list-style: none;
+        }
+
+        .about-list li {
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #333;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .about-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #FF1493;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* MIS TRABAJOS */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .client-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .client-item:hover {
+            transform: scale(1.08);
+            filter: brightness(0.9);
+        }
+
+        .client-item img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* CTA FINAL */
+        .card-cta {
+            grid-column: 1 / -1;
+        }
+
+        .cta-button {
+            background: #FF1493;
+            color: white;
+            padding: 20px 40px;
+            font-size: 1.4em;
+            font-weight: 900;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #E60B7F;
+            transform: scale(1.02);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.2em;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-title {
+                font-size: 1.4em;
+            }
+
+            .proposals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-content-inner {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1 class="header-title">VIR MALAG // WEB STUDIO</h1>
+        </header>
+
+        <!-- GRID DE TARJETAS PLEGABLES -->
+        <div class="cards-grid">
+            
+            <!-- TARJETA 1: HERO -->
+            <div class="card card-hero">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Te gustaría una página como esta?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <p>¡Claro que sí! Esta es una muestra de cómo podría verse tu próximo sitio web, diseñado exclusivamente para tu negocio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 2: PROPUESTAS -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">Propuestas</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <div class="proposals-grid">
+                            <div class="proposal-item">
+                                <h3>Plan Express</h3>
+                                <div class="details">Página única con dominio personalizado</div>
+                                <div class="details" style="font-size: 0.85em;">(ejemplo: lenguaisp2.github.io)</div>
+                                <div class="price">$60.000</div>
+                                <div class="cupo">Cupo limitado</div>
+                                <div class="update-note">Después de completar los cupos, los precios se actualizan.</div>
+                            </div>
+                            <div class="proposal-item">
+                                <h3>Plan Pro</h3>
+                                <div class="details">Sitio completo con múltiples páginas y dominio personalizado</div>
+                                <div class="details" style="font-size: 0.85em;">(ejemplo: pelitosenlaropa-rafaela.github.io)</div>
+                                <div class="price">$85.000</div>
+                                <div class="cupo">Cupo limitado</div>
+                                <div class="update-note">Después de completar los cupos, los precios se actualizan.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 3: ¿POR QUÉ GITHUB? -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Por qué GitHub?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <ul class="benefits-list">
+                            <li>Alojamiento gratuito (no te cobran por usar la página).</li>
+                            <li>Carga rápida (su infraestructura permite que no se tilde ni demore al cargar).</li>
+                            <li>Actualización fácil (si conocés códigos, o me contratás, se actualiza en minutos).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 4: ¿POR QUÉ YO? -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Por qué yo?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <ul class="about-list">
+                            <li>Diseño único, funcional y adaptado a tu marca.</li>
+                            <li>Experiencia trabajando con emprendedores y pequeños negocios como el tuyo.</li>
+                            <li>Trato personal y directo.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 5: MIS TRABAJOS -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">Mis trabajos</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <div class="clients-grid">
+                            <a href="https://pelitosenlaropa-rafaela.github.io" target="_blank" class="client-item">
+                                <img src="pelitos.jpg" alt="Pelitos en la Ropa">
+                            </a>
+                            <a href="https://lenguaisp2.github.io" target="_blank" class="client-item">
+                                <img src="isp.jpg" alt="Lengua ISP">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 6: ¿TENÉS DUDAS? -->
+            <div class="card card-cta">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <h2 class="card-title">¿Tenés dudas?</h2>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <button class="cta-button" onclick="window.open('https://wa.me/TU-NUMERO-AQUI', '_blank')">Hablame por WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCard(headerElement) {
+            const card = headerElement.closest('.card');
+            const content = card.querySelector('.card-content');
+            const icon = headerElement.querySelector('.toggle-icon');
+            
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
+        }
+
+        // Abrir la primera tarjeta por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstCard = document.querySelector('.card-hero');
+            const firstHeader = firstCard.querySelector('.card-header');
+            const firstContent = firstCard.querySelector('.card-content');
+            const firstIcon = firstHeader.querySelector('.toggle-icon');
+            
+            firstContent.classList.add('open');
+            firstIcon.classList.add('open');
+        });
+    </script>
+</body>
+</html>
